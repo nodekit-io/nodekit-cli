@@ -1,0 +1,11 @@
+use_frameworks!
+
+target '__PROJECT_NAME__' do
+    pod 'NodeKit', '>= 0.8.9'
+end
+
+post_install do |installer|
+  installer.pods_project.build_configurations.each do |config|
+    config.build_settings['SWIFT_VERSION'] = '2.3'
+  end
+end

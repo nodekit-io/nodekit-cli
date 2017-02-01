@@ -1,0 +1,47 @@
+Synopsis
+
+    nodekit-cli command [options]
+
+Global Commands
+    create ............................. Create a project
+    help ............................... Get help for a command
+    telemetry .......................... Turn telemetry collection on or off
+
+Project Commands
+    info ............................... Generate project information
+    requirements ....................... Checks and print out all the requirements
+                                            for platforms specified
+
+    platform ........................... Manage project platforms
+    plugin ............................. Manage project plugins
+
+    prepare ............................ Copy files into platform(s) for building
+    compile ............................ Build platform(s)
+    clean .............................. Cleanup project from build artifacts
+
+    run ................................ Run project
+                                            (including prepare && compile)
+    serve .............................. Run project with a local webserver
+                                            (including prepare)
+
+Learn more about command options using 'nodekit-cli help <command>'
+
+Aliases
+    build -> nodekit-cli prepare && nodekit-cli compile
+    emulate -> nodekit-cli run --emulator
+
+Options
+    -v, --version ...................... prints out this utility's version
+    -d, --verbose ...................... debug mode produces verbose log output for all activity,
+    --no-update-notifier ............... disables check for CLI updates
+    --nohooks .......................... suppress executing hooks
+                                         (taking RegExp hook patterns as parameters)
+
+Examples
+    nodekit-cli create myApp io.nodekit.myApp myApp
+    nodekit-cli plugin add nodekit-plugin-camera --save
+    nodekit-cli platform add android --save
+    nodekit-cli requirements android    
+    nodekit-cli build android --verbose
+    nodekit-cli run android
+    nodekit-cli build android --release -- --keystore="..\android.keystore" --storePassword=android --alias=mykey

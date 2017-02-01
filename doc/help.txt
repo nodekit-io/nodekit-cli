@@ -1,0 +1,7 @@
+Synopsis
+
+    nodekit-cli help [command]
+    nodekit-cli [command] -h
+    nodekit-cli -h [command]
+ 
+Show syntax summary, or the help for a specific command.

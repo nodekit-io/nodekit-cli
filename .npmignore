@@ -1,0 +1,10 @@
+*.DS_Store
+git-
+.lock-wscript
+npm-debug.log
+temp
+.idea/*
+.gitcore
+*.jar
+spec_tmp
+templates-build/

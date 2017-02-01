@@ -1,0 +1,24 @@
+{
+  "name": "nodekit-macos",
+  "version": "1.0.0",
+  "description": "Template for NodeKit Command Line",
+  "author": "OffGrid Networks",
+  "license": "Apache-2.0",
+    "scripts": {
+    "prepublish": "rm -rf node_modules_bundle && mv node_modules node_modules_bundle",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+   "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodekit-io/nodekit-cli.git"
+  },
+  "main": "bin/templates/scripts/nodekit-cli/Api.js",
+  "dependencies": {
+    "nopt": "^3.0.6",
+    "q": "^1.4.1",
+    "shelljs": "^0.5.3",
+    "underscore": "^1.8.3",
+    "unorm": "^1.4.1",
+    "xcode": "^0.8.5"
+  }
+}

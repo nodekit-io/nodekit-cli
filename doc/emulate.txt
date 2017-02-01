@@ -1,0 +1,8 @@
+Synopsis
+
+    nodekit-cli emulate [PLATFORM...] [-- [platformopts]]
+
+Alias for `nodekit-cli run --emulator`. Launches the emulator instead of device. 
+Use 'nodekit-cli help run' for details on options.
+
+To provide platform specific options, you must include them after `--`.

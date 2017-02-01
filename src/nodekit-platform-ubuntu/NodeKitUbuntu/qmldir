@@ -1,0 +1,5 @@
+module NodeKitUbuntu
+plugin nodekitubuntuplugin
+NodeKitView 4.0 NodeKitView.qml
+NodeKitViewInternal 4.0 NodeKitViewInternal.qml
+

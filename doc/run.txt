@@ -1,0 +1,46 @@
+Synopsis
+
+    nodekit-cli run [MODE] [BUILDOPTS] [TARGET] [PLATS] [BUILDCONFIG] [-- POPTS]
+
+      MODE:        --list|--debug|--release
+      BUILDOPTS:   --noprepare --nobuild
+      TARGET:      DEVICECLASS|--target=FOO
+      PLATS:       PLATFORM [...]
+      BUILDCONFIG: --buildConfig=CONFIGFILE
+      POPTS:       platformopts
+      DEVICECLASS: --device|--emulator
+
+Deploys app on specified platform devices / emulators
+
+    --list ............................. Lists available targets
+                                         Will display both device and emulator
+                                         unless DEVICECLASS option is provided
+
+    --debug ............................ Deploy a debug build
+    --release .......................... Deploy a release build
+
+    --noprepare ........................ Don't prepare
+    --nobuild .......................... Don't build
+
+    --device ........................... Deploy to a device
+    --emulator ......................... Deploy to an emulator
+    --target ........................... Deploy to a specific target
+
+    --buildConfig....................... Use the specified build configuration
+                                         instead of default build.json
+
+    --browserify ....................... Compile plugin JS at build time using
+                                         browserify instead of runtime.
+
+To provide platform specific options, you must include them after `--`.
+
+Technical details
+    calls nodekit prepare (unless --noprepare)
+    calls PLATFORM run
+        PLATFORM run calls PLATFORM build (unless --nobuild)
+
+Examples
+    nodekit-cli run android --release --buildConfig=..\myBuildConfig.json --target=myEmulator
+    nodekit-cli run android --nobuild
+    nodekit-cli run ios --device
+    nodekit-cli run ios --list
