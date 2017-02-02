@@ -36,8 +36,8 @@ nodekit run
 
 | Platform  | Supported  |
 |---|---|
-| android  |  Supported |
-| ios |  In Testing  |
+| android  |  In Testing |
+| ios |  Supported  |
 | osx  |  Supported |
 | windows  |  In progress |
 | windows-classic  |  In progress |
