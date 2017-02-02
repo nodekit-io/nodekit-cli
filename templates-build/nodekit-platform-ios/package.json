@@ -1,7 +1,7 @@
 {
   "name": "nodekit-ios",
   "version": "1.0.0",
-  "description": "iOS template for NodeKit Command Line",
+  "description": "Template for NodeKit Command Line",
   "author": "OffGrid Networks",
   "license": "Apache-2.0",
   "scripts": {
