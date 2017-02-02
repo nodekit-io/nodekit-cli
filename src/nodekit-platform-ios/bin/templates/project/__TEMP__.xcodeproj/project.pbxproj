@@ -7,12 +7,14 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		E442F5EE1E42DA7D00C858B5 /* app.nkar in Resources */ = {isa = PBXBuildFile; fileRef = E442F5ED1E42DA7D00C858B5 /* app.nkar */; };
 		E4B6E2C21E42C31400048723 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4B6E2BB1E42C31400048723 /* Assets.xcassets */; };
 		E4B6E2C31E42C31400048723 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = E4B6E2BD1E42C31400048723 /* LaunchScreen.storyboard */; };
 		E4B6E2C61E42C31400048723 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B6E2C11E42C31400048723 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		E442F5ED1E42DA7D00C858B5 /* app.nkar */ = {isa = PBXFileReference; lastKnownFileType = file; name = app.nkar; path = ../../app/app.nkar; sourceTree = "<group>"; };
 		E4B6E2A61E42C17200048723 /* __PROJECT_NAME__.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "__PROJECT_NAME__.app"; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B6E2BB1E42C31400048723 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4B6E2BE1E42C31400048723 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = LaunchScreen.storyboard; sourceTree = "<group>"; };
@@ -35,6 +37,7 @@
 		E4B6E29D1E42C17200048723 = {
 			isa = PBXGroup;
 			children = (
+				E442F5ED1E42DA7D00C858B5 /* app.nkar */,
 				E4B6E2C71E42C47D00048723 /* Podfile */,
 				E4B6E2A81E42C17200048723 /* __PROJECT_NAME__ */,
 				E4B6E2A71E42C17200048723 /* Products */,
@@ -130,6 +133,7 @@
 			files = (
 				E4B6E2C21E42C31400048723 /* Assets.xcassets in Resources */,
 				E4B6E2C31E42C31400048723 /* LaunchScreen.storyboard in Resources */,
+				E442F5EE1E42DA7D00C858B5 /* app.nkar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
