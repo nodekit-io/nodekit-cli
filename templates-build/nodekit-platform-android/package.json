@@ -12,7 +12,7 @@
     "type": "git",
     "url": "git+https://github.com/nodekit-io/nodekit-cli.git"
   },
-  "main": "bin/templates/scripts/nodekit-cli/Api.js",
+  "main": "bin/templates/nodekit-cli/Api.js", 
   "dependencies": {
     "elementtree": "^0.1.6",
     "nopt": "^3.0.1",

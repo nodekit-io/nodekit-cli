@@ -25,7 +25,7 @@ var uuid  = require('node-uuid');
 var events = require('nodekit-cli')['nodekit-cli-common'].events;
 var NodeKitError = require('nodekit-cli')['nodekit-cli-common'].NodeKitError;
 var AppxManifest = require('../../template/nodekit-cli/lib/AppxManifest');
-var pkg = require('../../../package');
+var pkg = require('../../package');
 
 // Creates nodekit-windows project at specified path with specified namespace, app name and GUID
 module.exports.create = function (destinationDir, config, options) {

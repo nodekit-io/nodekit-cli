@@ -112,6 +112,7 @@ function map(src, dest, cb) {
        .pipe(replace(/undashed\[2\]/g, "undashed[2] || 'org.example.' + undashed[1]"))    
        .pipe(replace(/undashed\[3\]/g, "undashed[3] || undashed[1]"))    
        .pipe(replace(/\.\.\/\.\.\/package/g, "../../../package"))     
+       .pipe(replace(/var pkg = require\('\.\.\/\.\.\/\.\.\/package'\);/g, "var pkg = require('../../package');"))     
        .pipe(replace(/SWIFT_OBJC_BRIDGING_HEADER =/g, "// *NODEKIT* SWIFT_OBJC_BRIDGING_HEADER ="))     
        .pipe(replace(/CODE_SIGN_ENTITLEMENTS =/g, "// *NODEKIT* CODE_SIGN_ENTITLEMENTS ="))     
        .pipe(f2.restore)

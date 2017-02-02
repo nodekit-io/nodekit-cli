@@ -290,7 +290,7 @@ exports.create = function(project_path, config, options, events) {
 };
 
 function generateDoneMessage(type, link) {
-    var pkg = require('../../../package');
+    var pkg = require('../../package');
     var msg = 'Android project ' + (type == 'update' ? 'updated ' : 'created ') + 'with ' + pkg.name + '@' + pkg.version;
     if (link) {
         msg += ' and has a linked NKNodeKit';

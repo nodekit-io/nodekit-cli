@@ -10,7 +10,7 @@
             "name": "Launch Program",
             "program": "${workspaceRoot}/bin/nodekit",
             "cwd": "${workspaceRoot}/../myApp",
-            "args": [ "platforms", "add", "macos" ]
+            "args": [ "platforms", "add", "android" ]
         },
         {
             "type": "node",
