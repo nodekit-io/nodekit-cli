@@ -24,7 +24,7 @@ var nodekit_util      = require('./util'),
     PlatformMunger    = require('nodekit-cli')['nodekit-cli-common'].ConfigChanges.PlatformMunger,
     events            = require('nodekit-cli')['nodekit-cli-common'].events,
     platforms         = require('../platforms/platforms'),
-    PlatformApiPoly = require('../platforms/PlatformApiPoly'),
+    // PlatformApiPoly = require('../platforms/PlatformApiPoly'),
     HooksRunner       = require('../hooks/HooksRunner'),
     Q                 = require('q'),
     restore           = require('./restore-util'),
@@ -104,7 +104,7 @@ function preparePlatforms (platformList, projectRoot, options) {
             var platformApi = platforms.getPlatformApi(platform);
             return platformApi.prepare(project, _.clone(options))
             .then(function () {
-                if (platform === 'windows' && !(platformApi instanceof PlatformApiPoly)) {
+                if (platform === 'windows' && true /* NODEKIT */) {
                     // Windows Api doesn't fire 'pre_package' hook, so we fire it here
                     return new HooksRunner(projectRoot).fire('pre_package', {
                         appPath: platformApi.getPlatformInfo().locations.app,

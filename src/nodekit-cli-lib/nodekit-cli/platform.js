@@ -188,7 +188,7 @@ function addHelper(cmd, hooksRunner, projectRoot, targets, opts) {
                     if (!PlatformApi) {
                         events.emit('verbose', 'Failed to require PlatformApi instance for platform "' + platform +
                             '". Using polyfill instead.');
-                        PlatformApi = require('../platforms/PlatformApiPoly');
+                        return Q.reject(new NodeKitError('Missing Api.js for platform and polyfill no longer supported.'));
                     }
                 }
 

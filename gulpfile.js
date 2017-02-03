@@ -41,9 +41,12 @@ function map(src, dest, cb) {
    '!node_modules/**/node_modules/**', 
    '!node_modules/**/guides/**',
    '!node_modules/*-android/framework/src/org/apache/**',
-   '!node_modules/*-android/*-js-src/**',
+    '!node_modules/**/*-js-src/**',
+   '!node_modules/**/CordovaLib/**',
     '!node_modules/*-android/bin/templates/project/**',
     '!node_modules/*-ios/bin/templates/project/**',
+    '!node_modules/cordova-lib/src/cordova/metadata/**', 
+    '!node_modules/cordova-lib/src/platforms/PlatformApiPoly.js',
     '!**/*.bat', '!**/*_plist_to_config_xml', '!**/autotest', '!**/diagnose_project'
    ]);
    var f2 = filter(['**', '!**/*.png'], {restore: true});
@@ -73,6 +76,10 @@ function map(src, dest, cb) {
        .pipe(replace(/nodekit-app-hello-world/ig, "nodekit-sample"))
        .pipe(replace(/GA_TRACKING_CODE = '.+'/ig, "GA_TRACKING_CODE = 'UA-85195988-1'"))
        .pipe(replace(/__CDV_ORGANIZATION_NAME__/ig, "__ORGANIZATION_NAME__"))
+       .pipe(replace(/PlatformApi = require\('\.\.\/platforms\/PlatformApiPoly'\)/g, "return Q.reject(new NodeKitError('Missing Api.js for platform and polyfill no longer supported.'))"))
+       .pipe(replace(/PlatformApiPoly =/g, "// PlatformApiPoly ="))
+       .pipe(replace(/\&\& \!\(platformApi instanceof PlatformApiPoly\)/g, "&& true /* NODEKIT */"))
+       .pipe(replace(/PlatformApi = require\('\.\/PlatformApiPoly'\)/g, "throw new Error('Current location does not contain a valid NodeKit Platform')"))
        .pipe(replace(/gradle-2\.13-all.zip/ig, "gradle-2.14.1-all.zip"))
        .pipe(replace(/,\s?'nodekit'/g, ", 'nodekit-cli'"))
        .pipe(replace(/,\s?'nodekit\//g, ", 'nodekit-cli/"))
@@ -97,7 +104,7 @@ function map(src, dest, cb) {
         //NODEKIT-START
         if (!fs.existsSync(path.join(dir, 'node_modules'))) {
             shell.mkdir(path.join(dir, 'node_modules'));
-            var nodekit_cli_dir = path.resolve(__dirname, "../..");
+            var nodekit_cli_dir = path.resolve(__dirname, "../../..");
             var nodekit_cli_js = 'module.exports = require("' + nodekit_cli_dir + '");'; 
             fs.writeFileSync(path.join(dir, 'node_modules', 'nodekit-cli.js'), nodekit_cli_js, 'utf8');
         }
@@ -150,9 +157,10 @@ gulp.task('cli', map.bind(null, './node_modules/cordova/*/**', '.'));
 
 gulp.task("cli-lib", map.bind(null, ["./node_modules/cordova-lib/src/**/*", "./node_modules/cordova-lib/cordova-lib.js"], 'src/nodekit-cli-lib'));
 gulp.task("cli-common", map.bind(null, ["./node_modules/cordova-common/src/**/*", "./node_modules/cordova-common/cordova-common.js"], 'src/nodekit-cli-common'));
-gulp.task("cli-fetch", map.bind(null, "./node_modules/cordova-fetch/index.js", 'src/nodekit-cli-fetch'));
-gulp.task("cli-serve", map.bind(null, ["./node_modules/cordova-serve/src/**/*", "./node_modules/cordova-serve/serve.js"], 'src/nodekit-cli-serve'));
-gulp.task("cli-create", map.bind(null, "./node_modules/cordova-create/index.js", 'src/nodekit-cli-create'));
+
+gulp.task("cli-fetch", map.bind(null, "./node_modules/cordova-fetch/index.js", 'src/nodekit-cli-lib/nodekit-cli-fetch'));
+gulp.task("cli-serve", map.bind(null, ["./node_modules/cordova-serve/src/**/*", "./node_modules/cordova-serve/serve.js"], 'src/nodekit-cli-lib/nodekit-cli-serve'));
+gulp.task("cli-create", map.bind(null, "./node_modules/cordova-create/index.js", 'src/nodekit-cli-lib/nodekit-cli-create'));
 
 gulp.task("android", map.bind(null, "./node_modules/cordova-android/*/**", 'src/nodekit-platform-android'));
 gulp.task("ios", map.bind(null, "./node_modules/cordova-ios/*/**", 'src/nodekit-platform-ios'));
@@ -191,4 +199,6 @@ function indexify(path) {
     else
         return path.basename;
 }
+
+
 

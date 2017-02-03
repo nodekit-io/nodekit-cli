@@ -68,7 +68,7 @@ function getPlatformApi(platform, platformRootDir) {
             events.emit('warn', 'Error loading nodekit-'+platform);
         }
 
-        PlatformApi = require('./PlatformApiPoly');
+        throw new Error('Current location does not contain a valid NodeKit Platform');
     }
 
     var platformApi = new PlatformApi(platform, platformRootDir, events);

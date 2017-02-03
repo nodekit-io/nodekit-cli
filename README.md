@@ -38,14 +38,10 @@ nodekit run
 |---|---|
 | android  |  In Testing |
 | ios |  Supported  |
-| osx  |  Supported |
+| macos  |  Supported |
 | windows  |  In progress |
-| windows-classic  |  In progress |
-| android-fireos  |  In progres |
 | ubuntu  |  Not started |
-| browser  |   In progress |
-| lambda  |  Not started |
-| azure  |  Not started |
+| nodejs  |  Not started |
 
 ## License
 

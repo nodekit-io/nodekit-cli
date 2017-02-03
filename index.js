@@ -43,9 +43,9 @@ module.exports.platforms =
     };
 
 addProperty(module.exports, 'nodekit-cli-common', './src/nodekit-cli-common');
-addProperty(module.exports, 'nodekit-cli-fetch', './src/nodekit-cli-fetch');
-addProperty(module.exports, 'nodekit-cli-serve', './src/nodekit-cli-serve');
+addProperty(module.exports, 'nodekit-cli-fetch', './src/nodekit-cli-lib/nodekit-cli-fetch');
+addProperty(module.exports, 'nodekit-cli-serve', './src/nodekit-cli-lib/nodekit-cli-serve');
 addProperty(module.exports, 'nodekit-cli-lib', './src/nodekit-cli-lib');
-addProperty(module.exports, 'nodekit-cli-create', './src/nodekit-cli-create');
+addProperty(module.exports, 'nodekit-cli-create', './src/nodekit-cli-lib/nodekit-cli-create');
 
 module.exports.cli = require('./src/cli');
