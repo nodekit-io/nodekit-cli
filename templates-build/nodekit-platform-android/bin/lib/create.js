@@ -133,7 +133,7 @@ function copyScripts(projectPath) {
     // Copy in the new ones.
     shell.cp('-r', srcScriptsDir, projectPath);
     /*NODEKIT*/ shell.cp('-r', path.join(ROOT, 'node_modules_bundle'), path.join(destScriptsDir, 'node_modules'));
-    shell.cp(path.join(ROOT, 'bin', 'check_reqs*'), destScriptsDir);
+    // *NODEKIT* shell.cp(path.join(ROOT, 'bin', 'check_reqs*'), destScriptsDir);
     shell.cp(path.join(ROOT, 'bin', 'lib', 'check_reqs.js'), path.join(projectPath, 'nodekit-cli', 'lib', 'check_reqs.js'));
     shell.cp(path.join(ROOT, 'bin', 'android_sdk_version'), path.join(destScriptsDir, 'android_sdk_version'));
     shell.cp(path.join(ROOT, 'bin', 'lib', 'android_sdk_version.js'), path.join(projectPath, 'nodekit-cli', 'lib', 'android_sdk_version.js'));

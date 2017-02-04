@@ -58,8 +58,8 @@ function copyScripts(projectPath, projectName, opts) {
     /*NODEKIT*/ shell.cp('-r', path.join(ROOT, 'node_modules_bundle'), path.join(destScriptsDir, 'node_modules'));
 
     // Copy the check_reqs script
-    shell.cp(path.join(binDir, 'check_reqs*'), destScriptsDir);
-    shell.cp(path.join(binDir, 'lib', 'check_reqs.js'), path.join(destScriptsDir, 'lib'));
+    // *NODEKIT shell.cp(path.join(binDir, 'check_reqs*'), destScriptsDir);
+   shell.cp(path.join(binDir, 'lib', 'check_reqs.js'), path.join(destScriptsDir, 'lib'));
 
     // Copy the version scripts
     if (opts.platformDetails.platform == 'ios') 

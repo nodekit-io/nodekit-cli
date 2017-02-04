@@ -47,7 +47,7 @@ module.exports = function(project_dir){
             { 'platform':'ios', 'scriptSrc': path.join(project_dir, 'nodekit-cli','apple_osx_version') },
         'apple-macos' :
             { 'platform':'ios', 'scriptSrc': path.join(project_dir, 'nodekit-cli','apple_osx_version') },
-      'blackberry-ndk' :
+        'blackberry-ndk' :
             { 'platform':'blackberry10', 'scriptSrc': path.join(project_dir, 'nodekit-cli','bb10-ndk-version') },
         'android-sdk' :
             { 'platform':'android', 'scriptSrc': path.join(project_dir, 'nodekit-cli','android_sdk_version') },
