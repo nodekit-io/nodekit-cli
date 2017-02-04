@@ -59,8 +59,8 @@ module.exports.get_target = function() {
         }
         return target.split('=')[1].trim();
     }
-    if (fs.existsSync(path.join(ROOT, 'framework', 'project.properties'))) {
-        return extractFromFile(path.join(ROOT, 'framework', 'project.properties'));
+    if (fs.existsSync(path.join(ROOT, 'bin', 'templates', 'framework', 'project.properties'))) {
+        return extractFromFile(path.join(ROOT, 'bin', 'templates', 'framework', 'project.properties'));
     }
     if (fs.existsSync(path.join(ROOT, 'project.properties'))) {
         // if no target found, we're probably in a project and project.properties is in ROOT.

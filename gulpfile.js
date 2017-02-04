@@ -41,7 +41,7 @@ function map(src, dest, cb) {
         '!node_modules/**/node_modules/**',
         '!node_modules/**/guides/**',
         '!node_modules/*-android/framework/src/org/apache/**',
-        '!node_modules/**/*-js-src/**',
+        '!node_modules/**/*-js-src/**',  '!node_modules/**/template/www/**', '!node_modules/*-ubuntu/www/**',
         '!node_modules/**/CordovaLib/**',
         '!node_modules/*-android/bin/templates/project/**',
         '!node_modules/*-ios/bin/templates/project/**',
@@ -91,8 +91,11 @@ function map(src, dest, cb) {
         .pipe(replace(/'nodekit'\sfolder/g, "'nodekit-cli' folder"))
         .pipe(replace(/["']\.\/src\//g, "'./"))
         .pipe(replace(/\.\.\/src\/cli/g, "../src/cli"))
+        .pipe(replace(/require\('\.\.\/\.\.\/lib\/create'\)/g, "require('../lib/create')"))
+        .pipe(replace(/require\('\.\.\/\.\.\/\.\.\/lib\/create'\)/g, "require('../lib/create')"))
         .pipe(replace(/Path to your new NodeKit iOS project/g, "Path to your new NodeKit project"))
         .pipe(replace(/, 'nodekit-cli', '\.\/nodekit\/nodekit'/g, ", 'nodekit', './nodekit-cli/nodekit'"))
+        .pipe(replace(/ROOT, 'framework'/g,"ROOT, 'bin', 'templates', 'framework'"))
         .pipe(replace(/\/nodekit\//g, "/nodekit-cli/"))
         .pipe(replace(/shell\.cp\('\-r', path\.join\(ROOT, 'node_modules'\), destScriptsDir\)/ig, "/*NODEKIT*/ shell.cp('-r', path.join(ROOT, 'node_modules_bundle'), path.join(destScriptsDir, 'node_modules'))"))
         .pipe(replace(/shell\.cp\('-r', path\.join\(project_template_dir, 'assets'\), project_path\)/ig, "/*NODEKIT*/  shell.mkdir('-p', path.join(project_path, 'assets'));  shell.cp('-r', path.join(project_template_dir, 'assets'), project_path)"))
@@ -136,6 +139,15 @@ function map(src, dest, cb) {
             path.dirname = path.dirname.replace(/nodekitlib/ig, function (match) { return matchCase("nknodekit", match); });
             path.basename = path.basename.replace(/nodekitlib/ig, function (match) { return matchCase("nknodekit", match); });
             path.dirname = (path.dirname + '/').replace(/\bnodekit\//g, "nodekit-cli/");
+            path.dirname = path.dirname.replace(/^template\//ig, "bin/templates/");
+            path.dirname = path.dirname.replace(/bin\/templates\/nodekit-cli/ig, "bin/nodekit-cli");
+            path.dirname = path.dirname.replace(/bin\/templates\/scripts\/nodekit-cli/ig, "bin/nodekit-cli");
+            path.dirname = path.dirname.replace(/bin\/templates\/project\/nodekit-cli/ig, "bin/nodekit-cli");
+            path.dirname = path.dirname.replace(/^framework/ig, "bin/templates/framework");
+            path.dirname = path.dirname.replace(/^bin\/templates\/$/ig, "bin/templates/project/");
+            path.dirname = path.dirname.replace(/^bin\/templates\/images\/$/ig, "bin/templates/project/images/");
+            path.dirname = path.dirname.replace(/^[qml|xml]/ig, function(match){ return "bin/templates/project/" + match});
+             path.dirname = path.dirname.replace(/^NodeKitUbuntu/ig, "bin/templates/framework");
         }))
         .pipe(gulp.dest(dest))
         .on('end', cb);
@@ -170,7 +182,7 @@ gulp.task("cli-create", map.bind(null, "./node_modules/cordova-create/index.js",
 gulp.task("android", map.bind(null, "./node_modules/cordova-android/*/**", 'src/nodekit-platform-android'));
 gulp.task("ios", map.bind(null, "./node_modules/cordova-ios/*/**", 'src/nodekit-platform-ios'));
 gulp.task("macos1", map.bind(null, "./node_modules/cordova-ios/*/**", "src/nodekit-platform-macos")); /* NOTE COPIED FROM IOS NOT OSX */
-gulp.task("macos2", ["macos1"], map.bind(null, "./node_modules/cordova-osx/bin/templates/scripts/**/*", "src/nodekit-platform-macos/bin/templates/scripts")); /* NOTE SCRIPTS COPIED FROM OSX */
+gulp.task("macos2", ["macos1"], map.bind(null, "./node_modules/cordova-osx/bin/templates/scripts/**/*", "src/nodekit-platform-macos/bin")); /* NOTE SCRIPTS COPIED FROM OSX */
 gulp.task("macos", ["macos1", "macos2"])
 gulp.task("windows", map.bind(null, "./node_modules/cordova-windows/*/**", 'src/nodekit-platform-windows'));
 gulp.task("ubuntu", map.bind(null, "./node_modules/cordova-ubuntu/*/**", 'src/nodekit-platform-ubuntu'));

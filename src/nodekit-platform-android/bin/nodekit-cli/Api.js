@@ -112,7 +112,7 @@ Api.createPlatform = function (destination, config, options, events) {
     events = setupEvents(events);
     var result;
     try {
-        result = require('../../lib/create')
+        result = require('../lib/create')
         .create(destination, config, options, events)
         .then(function (destination) {
             var PlatformApi = require(path.resolve(destination, 'nodekit-cli/Api'));
@@ -146,7 +146,7 @@ Api.updatePlatform = function (destination, options, events) {
     events = setupEvents(events);
     var result;
     try {
-        result = require('../../lib/create')
+        result = require('../lib/create')
         .update(destination, options, events)
         .then(function (destination) {
             var PlatformApi = require(path.resolve(destination, 'nodekit-cli/Api'));

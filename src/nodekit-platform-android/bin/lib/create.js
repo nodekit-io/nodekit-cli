@@ -29,7 +29,7 @@ var shell = require('shelljs'),
 var MIN_SDK_VERSION = 16;
 
 var NodeKitError = require('nodekit-cli')['nodekit-cli-common'].NodeKitError;
-var AndroidManifest = require('../templates/nodekit-cli/lib/AndroidManifest');
+var AndroidManifest = require('../nodekit-cli/lib/AndroidManifest');
 
 function setShellFatal(value, func) {
     var oldVal = shell.config.fatal;
@@ -39,7 +39,7 @@ function setShellFatal(value, func) {
 }
 
 function getFrameworkDir(projectPath, shared) {
-    return shared ? path.join(ROOT, 'framework') : path.join(projectPath, 'NKNodeKit');
+    return shared ? path.join(ROOT, 'bin', 'templates', 'framework') : path.join(projectPath, 'NKNodeKit');
 }
 
 function copyJsAndLibrary(projectPath, shared, projectName) {
@@ -71,11 +71,11 @@ function copyJsAndLibrary(projectPath, shared, projectName) {
         fs.symlinkSync(relativeFrameworkPath, nestedNKNodeKitPath, 'dir');
     } else {
         shell.mkdir('-p', nestedNKNodeKitPath);
-        shell.cp('-f', path.join(ROOT, 'framework', 'AndroidManifest.xml'), nestedNKNodeKitPath);
-        shell.cp('-f', path.join(ROOT, 'framework', 'project.properties'), nestedNKNodeKitPath);
-        shell.cp('-f', path.join(ROOT, 'framework', 'build.gradle'), nestedNKNodeKitPath);
-        shell.cp('-f', path.join(ROOT, 'framework', 'nodekit.gradle'), nestedNKNodeKitPath);
-        shell.cp('-r', path.join(ROOT, 'framework', 'src'), nestedNKNodeKitPath);
+        shell.cp('-f', path.join(ROOT, 'bin', 'templates', 'framework', 'AndroidManifest.xml'), nestedNKNodeKitPath);
+        shell.cp('-f', path.join(ROOT, 'bin', 'templates', 'framework', 'project.properties'), nestedNKNodeKitPath);
+        shell.cp('-f', path.join(ROOT, 'bin', 'templates',  'framework', 'build.gradle'), nestedNKNodeKitPath);
+        shell.cp('-f', path.join(ROOT, 'bin', 'templates',  'framework', 'nodekit.gradle'), nestedNKNodeKitPath);
+        shell.cp('-r', path.join(ROOT, 'bin', 'templates',  'framework', 'src'), nestedNKNodeKitPath);
     }
 }
 
@@ -126,7 +126,7 @@ function copyBuildRules(projectPath) {
 }
 
 function copyScripts(projectPath) {
-    var srcScriptsDir = path.join(ROOT, 'bin', 'templates', 'nodekit-cli');
+    var srcScriptsDir = path.join(ROOT, 'bin', 'nodekit-cli');
     var destScriptsDir = path.join(projectPath, 'nodekit-cli');
     // Delete old scripts directory if this is an update.
     shell.rm('-rf', destScriptsDir);

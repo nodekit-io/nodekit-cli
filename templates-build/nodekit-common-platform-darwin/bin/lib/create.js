@@ -28,8 +28,8 @@ var shell = require('shelljs'),
     plist = require('plist'),
     ROOT = path.join(__dirname, '..', '..'),
     events = require('nodekit-cli')['nodekit-cli-common'].events,
-    Podfile = require('../templates/scripts/nodekit-cli/lib/Podfile').Podfile,
-    PodsJson = require('../templates/scripts/nodekit-cli/lib/PodsJson').PodsJson,
+    Podfile = require('../nodekit-cli/lib/Podfile').Podfile,
+    PodsJson = require('../nodekit-cli/lib/PodsJson').PodsJson,
     check_reqs = require('./check_reqs'); 
 
 function updateSubprojectHelp() {
@@ -44,9 +44,9 @@ function setShellFatal(value, func) {
     shell.config.fatal = oldVal;
 }
 
-// NODEKIT: REMOVED copyJsAndNKNodeKit
+// NODEKIT: REMOVED copyJsAndNKNodeKit and adjusted source directories
 function copyScripts(projectPath, projectName, opts) {
-    var srcScriptsDir = path.join(ROOT, 'bin', 'templates', 'scripts', 'nodekit-cli');
+    var srcScriptsDir = path.join(ROOT, 'bin', 'nodekit-cli');
     var destScriptsDir = path.join(projectPath, 'nodekit-cli');
 
     // Delete old scripts directory.
