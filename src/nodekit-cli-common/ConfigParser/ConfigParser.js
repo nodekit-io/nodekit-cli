@@ -31,8 +31,8 @@ function ConfigParser(path) {
     try {
         // this.doc = xml.parseElementtreeSync(path);
        this.doc = xml_json_helpers.parseElementtreeSync(path);
-       this.cdvNamespacePrefix = getNodeKitNamespacePrefix(this.doc);
-        et.register_namespace(this.cdvNamespacePrefix, 'http://nodekit.io/ns/1.0');
+       this.ognNamespacePrefix = getNodeKitNamespacePrefix(this.doc);
+        et.register_namespace(this.ognNamespacePrefix, 'http://nodekit.io/ns/1.0');
     } catch (e) {
         console.error('Parsing '+path+' failed');
         throw e;
@@ -58,7 +58,7 @@ function findOrCreate(doc, name) {
 
 function getNodeKitNamespacePrefix(doc){
     var rootAtribs = Object.getOwnPropertyNames(doc.getroot().attrib);
-    var prefix = 'cdv';
+    var prefix = 'ogn';
     for (var j = 0; j < rootAtribs.length; j++ ) {
         if(rootAtribs[j].indexOf('xmlns:') === 0 &&
             doc.getroot().attrib[rootAtribs[j]] === 'http://nodekit.io/ns/1.0'){
@@ -191,7 +191,7 @@ ConfigParser.prototype = {
             var res = {};
             res.src = elt.attrib.src;
             res.target = elt.attrib.target || undefined;
-            res.density = elt.attrib['density'] || elt.attrib[that.cdvNamespacePrefix+':density'] || elt.attrib['gap:density'];
+            res.density = elt.attrib['density'] || elt.attrib[that.ognNamespacePrefix+':density'] || elt.attrib['gap:density'];
             res.platform = elt.platform || null; // null means icon represents default icon (shared between platforms)
             res.width = +elt.attrib.width || undefined;
             res.height = +elt.attrib.height || undefined;
