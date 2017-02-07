@@ -23,7 +23,7 @@ var nodekit_util = require('./util'),
     semver       = require('semver');
 
 
-/** Returns all the platforms that are currently saved into config.xml
+/** Returns all the platforms that are currently saved into nodekit.json
  *  @return {Promise<{name: string, version: string, src: string}[]>}
  *      e.g: [ {name: 'android', version: '3.5.0'}, {name: 'wp8', src: 'C:/path/to/platform'}, {name: 'ios', src: 'git://...'} ]
  */
@@ -49,7 +49,7 @@ function getPlatforms(projectRoot){
     return Q(engines);
 }
 
-/** Returns all the plugins that are currently saved into config.xml
+/** Returns all the plugins that are currently saved into nodekit.json
  *  @return {Promise<{id: string, version: string, variables: {name: string, value: string}[]}[]>}
  *      e.g: [ {id: 'io.nodekit.device', variables: [{name: 'APP_ID', value: 'my-app-id'}, {name: 'APP_NAME', value: 'my-app-name'}]} ]
  */

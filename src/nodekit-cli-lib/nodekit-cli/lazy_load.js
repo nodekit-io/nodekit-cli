@@ -134,7 +134,7 @@ function nodekit_npm(platform) {
         }
 
         // Note that because the version of npm we use internally doesn't support caret versions, in order to allow them
-        // from the command line and in config.xml, we use the actual version returned by getLatestMatchingNpmVersion().
+        // from the command line and in nodekit.json, we use the actual version returned by getLatestMatchingNpmVersion().
         return npmhelper.cachePackage(platform.packageName, version);
     });
 }

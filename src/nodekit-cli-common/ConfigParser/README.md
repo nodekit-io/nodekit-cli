@@ -23,7 +23,7 @@
 
 ## ConfigParser
 
-wraps a valid nodekit config.xml file 
+wraps a valid nodekit nodekit.json file 
 
 ### Usage
 
@@ -33,7 +33,7 @@ wraps a valid nodekit config.xml file
 
 ### Create a new ConfigParser
 
-    var config = new ConfigParser('path/to/config/xml/');
+    var config = new ConfigParser('path/to/nodekit/json/');
     
 ### Utility Functions
 

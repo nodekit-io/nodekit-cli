@@ -5,7 +5,7 @@ Synopsis
 Manage project platforms
 
     add <plat-spec> [...].............. Add specified platforms
-        --save ........................ Save specified platforms into config.xml after installing them
+        --save ........................ Save specified platforms into nodekit.json after installing them
 
         --link ........................ When <plat-spec> is a local path, links the platform
                                         library directly instead of making a copy of it (support
@@ -18,7 +18,7 @@ Manage project platforms
 
 
     remove <platform> [...] ........... Remove specified platforms
-        --save ........................ Delete specified platforms from config.xml after removing them
+        --save ........................ Delete specified platforms from nodekit.json after removing them
         --fetch ....................... Removes the plugin from the project's node_modules directory.
                                         Runs `npm uninstall` under the hood.
 
@@ -26,14 +26,14 @@ Manage project platforms
     update <plat-spec> ................ Update the version of NodeKit used for a specific platform;
                                         update to the latest <version> if no <plat-spec> is specified
 
-        --save ........................ Save the latest versions for specified platforms into config.xml
+        --save ........................ Save the latest versions for specified platforms into nodekit.json
 
         --fetch ....................... Fetches the plugin into the project's node_modules directory. 
                                         Uses `npm install` to do the fetching.
 
     list .............................. List all installed and available platforms
     check ............................. List platforms which can be updated by `nodekit-cli platform update`
-    save .............................. Save version of all platforms added to config.xml
+    save .............................. Save version of all platforms added to nodekit.json
 
 
 Syntax

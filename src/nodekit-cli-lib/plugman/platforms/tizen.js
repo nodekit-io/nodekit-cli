@@ -30,11 +30,11 @@ module.exports = {
     },
     package_name:function(project_dir) {
         // preferred location if nodekit >= 3.4
-        var preferred_path = path.join(project_dir, 'config.xml');
+        var preferred_path = path.join(project_dir, 'nodekit.json');
         var config_path;
         if (!fs.existsSync(preferred_path)) {
             // older location
-            var old_config_path = path.join(module.exports.app_dir(project_dir), 'config.xml');
+            var old_config_path = path.join(module.exports.app_dir(project_dir), 'nodekit.json');
             if (!fs.existsSync(old_config_path)) {
                 // output newer location and fail reading
                 config_path = preferred_path;

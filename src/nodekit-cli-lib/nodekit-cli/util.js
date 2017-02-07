@@ -84,7 +84,7 @@ function isUrl(value) {
 
 function isRootDir(dir) {
     if (exports.existsSync(path.join(dir, 'app'))) {
-        if (exports.existsSync(path.join(dir, 'config.xml'))) {
+        if (exports.existsSync(path.join(dir, 'nodekit.json'))) {
             // For sure is.
             if (exports.existsSync(path.join(dir, 'platforms'))) {
                 return 2;
@@ -93,7 +93,7 @@ function isRootDir(dir) {
             }
         }
         // Might be (or may be under platforms/).
-        if (exports.existsSync(path.join(dir, 'app', 'config.xml'))) {
+        if (exports.existsSync(path.join(dir, 'app', 'nodekit.json'))) {
             return 1;
         }
     }
@@ -254,8 +254,8 @@ function projectApp(projectDir) {
 }
 
 function projectConfig(projectDir) {
-    var rootPath = path.join(projectDir, 'config.xml');
-    var appPath = path.join(projectDir, 'app', 'config.xml');
+    var rootPath = path.join(projectDir, 'nodekit.json');
+    var appPath = path.join(projectDir, 'app', 'nodekit.json');
     if (exports.existsSync(rootPath)) {
         return rootPath;
     } else if (exports.existsSync(appPath)) {

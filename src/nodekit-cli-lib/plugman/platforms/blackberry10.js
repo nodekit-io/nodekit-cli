@@ -32,7 +32,7 @@ module.exports = {
         return path.join(project_dir, 'app');
     },
     package_name:function(project_dir) {
-        var config_path = path.join(module.exports.app_dir(project_dir), 'config.xml');
+        var config_path = path.join(module.exports.app_dir(project_dir), 'nodekit.json');
         var widget_doc = xml_helpers.parseElementtreeSync(config_path);
         return widget_doc._root.attrib['id'];
     },

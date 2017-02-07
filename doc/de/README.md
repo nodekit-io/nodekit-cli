@@ -132,7 +132,7 @@ Jetzt sind die `NodeKit` und `Plugman` in Ihrem Pfad der lokalen Git-Versionen. 
 Eine Anwendung für NodeKit mit `NodeKit-Cli` haben die folgende Verzeichnisstruktur:
 
     myApp/
-    |-- config.xml
+    |-- nodekit.json
     |-- hooks/
     |-- merges/
     | | |-- android/
@@ -171,9 +171,9 @@ Nach dem Aufbau der Android und iOS-Projekte, wird die Android-Anwendung `app.js
 
 Das Projekt Web Artefakte wie HTML, CSS und JS-Dateien enthält. Dies sind Ihre Hauptanwendung Vermögenswerte. Sie werden auf eine `nodekit prepare` jede Plattform App-Verzeichnis kopiert werden.
 
-### Ihre Decke: "config.xml"
+### Ihre Decke: "nodekit.json"
 
-Diese Datei ist was Sie bearbeiten sollten um Ihre Anwendung Metadaten ändern. Jedesmal wenn Sie NodeKit-Cli-Befehle ausführen das Tool betrachten Sie den Inhalt der `Datei config.xml` und alle relevanten Informationen aus dieser Datei verwenden, um native Anwendungsinformationen zu definieren. NodeKit-Cli unterstützt Ihre Anwendungsdaten über die folgenden Elemente in der Datei `"config.xml"` ändern:
+Diese Datei ist was Sie bearbeiten sollten um Ihre Anwendung Metadaten ändern. Jedesmal wenn Sie NodeKit-Cli-Befehle ausführen das Tool betrachten Sie den Inhalt der `Datei nodekit.json` und alle relevanten Informationen aus dieser Datei verwenden, um native Anwendungsinformationen zu definieren. NodeKit-Cli unterstützt Ihre Anwendungsdaten über die folgenden Elemente in der Datei `"nodekit.json"` ändern:
 
   * Über den Inhalt des Elements `<name>` kann der Benutzer-Namen geändert werden.
   * Der Paketname (AKA Bündel Bezeichner oder Anwendung Id) kann über das `Id` -Attribut aus dem Element der obersten Ebene `<widget>` verändert werden.

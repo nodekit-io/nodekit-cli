@@ -61,7 +61,7 @@ function buildClickPackage(campoDir, ubuntuDir, nobuild, architecture, framework
 
     assert.ok(architecture && architecture.match(/^[a-z0-9_]+$/));
 
-    Manifest.generate(path.join(ubuntuDir, 'config.xml'), ubuntuDir);
+    Manifest.generate(path.join(ubuntuDir, 'nodekit.json'), ubuntuDir);
 
     var archDir = path.join(ubuntuDir, framework, architecture);
     var prefixDir = path.join(archDir, 'prefix');
@@ -103,7 +103,7 @@ function buildClickPackage(campoDir, ubuntuDir, nobuild, architecture, framework
         Utils.cp(path.join(ubuntuDir, 'app', '*'), path.join(prefixDir, 'app'));
         Utils.cp(path.join(ubuntuDir, 'qml', '*'), path.join(prefixDir, 'qml'));
         Utils.cp(path.join(ubuntuDir, 'nodekit.desktop'), prefixDir);
-        Utils.cp(path.join(ubuntuDir, 'config.xml'), prefixDir);
+        Utils.cp(path.join(ubuntuDir, 'nodekit.json'), prefixDir);
 
         var content = JSON.parse(fs.readFileSync(path.join(ubuntuDir, 'manifest.json'), {encoding: "utf8"}));
         content.architecture = architecture;
@@ -141,7 +141,7 @@ function buildNative(campoDir, ubuntuDir, nobuild, debug) {
     }
 
     return checkEnv(ubuntuDir).then(function() {
-	Manifest.generate(path.join(ubuntuDir, 'config.xml'), ubuntuDir);
+	Manifest.generate(path.join(ubuntuDir, 'nodekit.json'), ubuntuDir);
 
 	shell.rm('-rf', prefixDir);
 
@@ -165,7 +165,7 @@ function buildNative(campoDir, ubuntuDir, nobuild, debug) {
 	return Utils.execAsync(cmakeCmd).then(function () {
             return Utils.execAsync('make -j ' + cpuCount() + '; make install');
 	}).then(function () {
-            Utils.cp(path.join(ubuntuDir, 'config.xml'), prefixDir);
+            Utils.cp(path.join(ubuntuDir, 'nodekit.json'), prefixDir);
             Utils.cp(path.join(ubuntuDir, 'app', '*'), path.join(prefixDir, 'app'));
             Utils.cp(path.join(ubuntuDir, 'qml', '*'), path.join(prefixDir, 'qml'));
 	    
@@ -183,7 +183,7 @@ function buildNative(campoDir, ubuntuDir, nobuild, debug) {
             shell.mkdir('-p', path.join(debDir, 'debian'));
             Utils.cp(path.join(campoDir, '*'), debDir);
 	    
-            Utils.cp(path.join(ubuntuDir, 'config.xml'), path.join(debDir, 'debian'));
+            Utils.cp(path.join(ubuntuDir, 'nodekit.json'), path.join(debDir, 'debian'));
             Utils.cp(path.join(ubuntuDir, 'app', '*'), path.join(debDir, 'app'));
             Utils.cp(path.join(ubuntuDir, 'qml', '*'), path.join(debDir, 'qml'));
 	    
@@ -236,7 +236,7 @@ function fillTemplate(source, dest, obj) {
 }
 
 function additionalBuildDependencies(ubuntuDir) {
-    var config = new ConfigParser(path.join(ubuntuDir, 'config.xml'));
+    var config = new ConfigParser(path.join(ubuntuDir, 'nodekit.json'));
 
     var pkgConfig = [];
     config.etree.getroot().findall('./feature/deps/pkgConfig').forEach(function (element) {
@@ -416,7 +416,7 @@ function checkChrootEnv(ubuntuDir, architecture, framework) {
 }
 
 function additionalDependencies(ubuntuDir) {
-    var config = new ConfigParser(path.join(ubuntuDir, 'config.xml'));
+    var config = new ConfigParser(path.join(ubuntuDir, 'nodekit.json'));
 
     var deb = [];
     config.etree.getroot().findall('./feature/deps/deb').forEach(function (element) {

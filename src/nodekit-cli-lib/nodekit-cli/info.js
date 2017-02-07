@@ -63,7 +63,7 @@ module.exports = function info() {
             Q('Node version: ' + process.version),
             //Get NodeKit version
             Q('NodeKit version: ' + package.version),
-            //Get project config.xml file using ano
+            //Get project nodekit.json file using ano
             getProjectConfig(projectRoot),
             //Get list of plugins
             listPlugins(projectRoot),
@@ -104,7 +104,7 @@ function listPlugins(projectRoot) {
 
 function getProjectConfig(projectRoot) {
     if (!fs.existsSync(projectRoot)  ) {
-        return Q.reject('Config.xml file not found');
+        return Q.reject('nodekit.json file not found');
     }
-    return Q('Config.xml file: \n\n' + (fs.readFileSync(nodekit_util.projectConfig(projectRoot), 'utf-8')));
+    return Q('nodekit.json file: \n\n' + (fs.readFileSync(nodekit_util.projectConfig(projectRoot), 'utf-8')));
 }

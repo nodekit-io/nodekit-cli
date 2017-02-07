@@ -152,7 +152,7 @@ function runScript(script, context) {
         source = 'plugin ' + script.plugin.id;
         relativePath = path.join('plugins', script.plugin.id, script.path);
     } else if (script.useModuleLoader) {
-        source = 'config.xml';
+        source = 'nodekit.json';
         relativePath = path.normalize(script.path);
     } else {
         source = 'hooks directory';

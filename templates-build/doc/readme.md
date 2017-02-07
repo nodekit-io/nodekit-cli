@@ -80,13 +80,13 @@ Certain commands have options (`platformOpts`) that are specific to a particular
         # Create a nodekit project
         nodekit create myApp com.myCompany.myApp myApp
         cd myApp
-        # Add camera plugin to the project and remember that in config.xml
+        # Add camera plugin to the project and remember that in nodekit.json
         nodekit plugin add nodekit-plugin-camera --save
-        # Add camera plugin to the project and remember that in config.xml. Use npm install to fetch.
+        # Add camera plugin to the project and remember that in nodekit.json. Use npm install to fetch.
         nodekit plugin add nodekit-plugin-camera --save --fetch
-        # Add android platform to the project and remember that in config.xml
+        # Add android platform to the project and remember that in nodekit.json
         nodekit platform add android --save
-        # Add android platform to the project and remember that in config.xml. Use npm install to fetch.
+        # Add android platform to the project and remember that in nodekit.json. Use npm install to fetch.
         nodekit platform add android --save --fetch
         # Check to see if your system is configured for building android platform.
         nodekit requirements android
@@ -112,8 +112,8 @@ nodekit create path [id [name [config]]] [options]
 | Value | Description   |
 |-------|---------------|
 | path  |  Directory which should not already exist. NodeKit will create this directory. For more details on the directory structure, see below. |
-| id    | _Default_: `io.nodekit.hellonodekit` <br/>  Reverse domain-style identifier that maps to `id` attribute of `widget` element in `config.xml`. This can be changed but there may be code generated using this value, such as Java package names. It is recommended that you select an appropriate value.  |
-| name  | _Default_: `HelloNodeKit` <br/> Application's display title that maps `name` element in `config.xml` file. This can be changed but there may be code generated using this value, such as Java class names. The default value is `HelloNodeKit`, but it is recommended that you select an appropriate value. |
+| id    | _Default_: `io.nodekit.hellonodekit` <br/>  Reverse domain-style identifier that maps to `id` attribute of `widget` element in `nodekit.json`. This can be changed but there may be code generated using this value, such as Java package names. It is recommended that you select an appropriate value.  |
+| name  | _Default_: `HelloNodeKit` <br/> Application's display title that maps `name` element in `nodekit.json` file. This can be changed but there may be code generated using this value, such as Java class names. The default value is `HelloNodeKit`, but it is recommended that you select an appropriate value. |
 | config | JSON string whose key/values will be included in `<path>`/.nodekit/config.json |
 
 ### Options
@@ -130,7 +130,7 @@ NodeKit CLI works with the following directory structure:
 
 ```
 myapp/
-|-- config.xml
+|-- nodekit.json
 |-- hooks/
 |-- merges/
 | | |-- android/
@@ -145,9 +145,9 @@ myapp/
   |--nodekit-plugin-camera/
 ```
 
-#### config.xml
+#### nodekit.json
 
-Configures your application and allows you to customize the behavior of your project. See also [config.xml reference documentation][config.xml ref]
+Configures your application and allows you to customize the behavior of your project. See also [nodekit.json reference documentation][nodekit.json ref]
 
 #### app/
 
@@ -187,7 +187,7 @@ After building the Android and iOS projects, the Android application will contai
 
 #### Version control
 
-It is recommended not to check in `platforms/` and `plugins/` directories into version control as they are considered a build artifact. Instead, you should save the platform/plugin spec in the `config.xml` and they will be downloaded when on the machine when `nodekit prepare` is invoked.
+It is recommended not to check in `platforms/` and `plugins/` directories into version control as they are considered a build artifact. Instead, you should save the platform/plugin spec in the `nodekit.json` and they will be downloaded when on the machine when `nodekit prepare` is invoked.
 
 ### Examples
 
@@ -221,18 +221,18 @@ nodekit {platform | platforms} [
 | Sub-command           | Option | Description |
 ------------------------|-------------|------|
 | add `<platform-spec>` [...] |  | Add specified platforms |
-|     | --save                   | Save `<platform-spec>` into `config.xml` after installing them using `<engine>` tag |
+|     | --save                   | Save `<platform-spec>` into `nodekit.json` after installing them using `<engine>` tag |
 |     | --link=`<path>`          | When `<platform-spec>` is a local path, links the platform library directly instead of making a copy of it (support varies by platform; useful for platform development)
 |     | --fetch                  | Fetches the platform using `npm install` and stores it into the apps `node_modules` directory |
 | remove `<platform>` [...] |    | Remove specified platforms |
-|     | --save                   | Delete specified platforms from `config.xml` after removing them |
+|     | --save                   | Delete specified platforms from `nodekit.json` after removing them |
 |     | --fetch                  | Removes the platform using `npm uninstall` and removes it from the apps `node_modules` directory |
 | update `platform` [...] |      | Update specified platforms |
-|     | --save                   | Updates the version specified in `config.xml` |
+|     | --save                   | Updates the version specified in `nodekit.json` |
 |     | --fetch                  | Fetches the platform using `npm install` and stores it into the apps `node_modules` directory |
 | list |                         | List all installed and available platforms |
 | check |                        | List platforms which can be updated by `nodekit-cli platform update` |
-| save  |                        | Save `<platform-spec>` of all platforms added to config.xml |
+| save  |                        | Save `<platform-spec>` of all platforms added to nodekit.json |
 
 ### Platform-spec
 
@@ -262,16 +262,16 @@ There are a number of ways to specify a platform:
 
 ### Examples
 
-- Add pinned version of the `android` and `ios` platform and save the downloaded version to `config.xml`:
+- Add pinned version of the `android` and `ios` platform and save the downloaded version to `nodekit.json`:
 
         nodekit platform add android ios --save
 
-- Add pinned version of the `android` and `ios` platform and save the downloaded version to `config.xml`. Install 
+- Add pinned version of the `android` and `ios` platform and save the downloaded version to `nodekit.json`. Install 
 to the project using `npm install` and store it in the apps `node_modules` directory:
 
         nodekit platform add android ios --save --fetch
 
-- Add `android` platform with [semver](http://semver.org/) version ^5.0.0 and save it to `config.xml`:
+- Add `android` platform with [semver](http://semver.org/) version ^5.0.0 and save it to `nodekit.json`:
 
         nodekit platform add android@^5.0.0 --save
 
@@ -287,11 +287,11 @@ to the project using `npm install` and store it in the apps `node_modules` direc
 
         nodekit platform add ../nodekit-android.tgz
 
-- Remove `android` platform from the project and from `config.xml`:
+- Remove `android` platform from the project and from `nodekit.json`:
 
         nodekit platform rm android --save
 
-- Remove `android` platform from the project and from `config.xml`. Run `npm uninstall` to remove it
+- Remove `android` platform from the project and from `nodekit.json`. Run `npm uninstall` to remove it
 from the `node_modules` directory.
 
         nodekit platform rm android --save --fetch
@@ -300,7 +300,7 @@ from the `node_modules` directory.
 
         nodekit platform ls
 
-- Save versions of all platforms currently added to the project to `config.xml`.
+- Save versions of all platforms currently added to the project to `nodekit.json`.
 
         nodekit platform save
 
@@ -328,12 +328,12 @@ nodekit {plugin | plugins} [
 |       |--searchpath `<directory>` | When looking up plugins by ID, look in this directory and each of its subdirectories before hitting the registry. Multiple search paths can be specified. Use ':' as a separator in `*nix` based systems and ';' for Windows.
 |       |--noregistry             | Don't search the registry for plugins.
 |       |--link                   | When installing from a local path, creates a symbolic link instead of copying files. The extent to which files are linked varies by platform. Useful for plugin development.
-|       |--save                   | Save the `<plugin-spec>` as part of the `plugin` element  into `config.xml`.
+|       |--save                   | Save the `<plugin-spec>` as part of the `plugin` element  into `nodekit.json`.
 |       |--browserify             | Compile plugin JS at build time using browserify instead of runtime.
 |       |--force                  | _Introduced in version 6.1._ Forces copying source files from the plugin even if the same file already exists in the target directory.
 |       |--fetch                 | Fetches the plugin using `npm install` and stores it into the apps `node_modules` directory |
 | remove `<pluginid>|<name>` [...]| | Remove plugins with the given IDs/name.
-|       |--save                    | Remove the specified plugin from config.xml
+|       |--save                    | Remove the specified plugin from nodekit.json
 |       |--fetch                  | Removes the plugin using `npm uninstall` and removes it from the apps `node_modules` directory |
 |list                           |  | List currently installed plugins
 |search `[<keyword>]` [...]     |  | Search http://plugins.nodekit.io for plugins matching the keywords
@@ -361,17 +361,17 @@ When adding a plugin to a project, the CLI will resolve the plugin
 based on the following criteria (listed in order of precedence):
 
 1. The `plugin-spec` given in the command (e.g. `nodekit plugin add pluginID@version`)
-2. The `plugin-spec` saved in `config.xml` (i.e. if the plugin was previously added with `--save`)
+2. The `plugin-spec` saved in `nodekit.json` (i.e. if the plugin was previously added with `--save`)
 3. As of NodeKit version 6.1, the latest plugin version published to npm that the current project can support (only applies to plugins that list their [NodeKit dependencies] in their `package.json`)
 4. The latest plugin version published to npm
 
 ### Examples
 
-- Add `nodekit-plugin-camera` and `nodekit-plugin-file` to the project and save it to `config.xml`. Use `../plugins` directory to search for the plugins.
+- Add `nodekit-plugin-camera` and `nodekit-plugin-file` to the project and save it to `nodekit.json`. Use `../plugins` directory to search for the plugins.
 
         nodekit plugin add nodekit-plugin-camera nodekit-plugin-file --save --searchpath ../plugins
 
-- Add `nodekit-plugin-camera` with [semver](http://semver.org/) version ^2.0.0 and save it to `config.xml`:
+- Add `nodekit-plugin-camera` with [semver](http://semver.org/) version ^2.0.0 and save it to `nodekit.json`:
 
         nodekit plugin add nodekit-plugin-camera@^2.0.0 --save
 
@@ -379,7 +379,7 @@ based on the following criteria (listed in order of precedence):
 
         nodekit plugin add nodekit-plugin-camera@^2.0.0 --fetch
 
-- Clone the specified git repo, checkout to tag `2.1.0`, look for plugin.xml in the `plugin` directory, and add it to the project. Save the `plugin-spec` to `config.xml`:
+- Clone the specified git repo, checkout to tag `2.1.0`, look for plugin.xml in the `plugin` directory, and add it to the project. Save the `plugin-spec` to `nodekit.json`:
 
         nodekit plugin add https://github.com/apache/nodekit-plugin-camera.git#2.1.0:plugin --save
 
@@ -391,7 +391,7 @@ based on the following criteria (listed in order of precedence):
 
         nodekit plugin add ../nodekit-plugin-camera.tgz --save
 
-- Remove the plugin from the project and the `config.xml`:
+- Remove the plugin from the project and the `nodekit.json`:
 
         nodekit plugin rm camera --save
 
@@ -407,7 +407,7 @@ based on the following criteria (listed in order of precedence):
 
 ### Synopsis
 
-Transforms config.xml metadata to platform-specific manifest files, copies icons & splashscreens,
+Transforms nodekit.json metadata to platform-specific manifest files, copies icons & splashscreens,
 copies plugin files for specified platforms so that the project is ready to build with each native SDK.
 
 ### Syntax
@@ -654,6 +654,6 @@ nodekit -h [command]
 ```
 
 [Hooks guide]: http://nodekit.io/docs/en/latest/guide_appdev_hooks_index.md.html
-[config.xml ref]: http://nodekit.io/docs/en/latest/config_ref/index.html
+[nodekit.json ref]: http://nodekit.io/docs/en/latest/config_ref/index.html
 [NodeKit dependencies]: http://nodekit.io/docs/en/latest/guide/hybrid/plugins/index.html#specifying-project-requirements
 [scoped npm package]: https://docs.npmjs.com/misc/scope

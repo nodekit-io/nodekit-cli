@@ -103,7 +103,7 @@ function addHelper(cmd, hooksRunner, projectRoot, targets, opts) {
                     events.emit('warn', 'wp8 has been deprecated. Please use windows instead.');
                 }
                 if (platform && !spec && cmd == 'add') {
-                    events.emit('verbose', 'No version supplied. Retrieving version from config.xml...');
+                    events.emit('verbose', 'No version supplied. Retrieving version from nodekit.json...');
                     spec = getVersionFromConfigFile(platform, cfg);
                 }
 
@@ -210,7 +210,7 @@ function addHelper(cmd, hooksRunner, projectRoot, targets, opts) {
                 })
                 .then(function () {
                     if (!opts.restoring) {
-                        // Call prepare for the current platform if we're not restoring from config.xml
+                        // Call prepare for the current platform if we're not restoring from nodekit.json
                         var prepOpts = {
                             platforms :[platform],
                             searchpath :opts.searchpath,
@@ -235,9 +235,9 @@ function addHelper(cmd, hooksRunner, projectRoot, targets, opts) {
                         // was installed. However, we save it with the "~" attribute (this allows for patch updates).
                         spec = saveVersion ? '~' + platDetails.version : spec;
 
-                        // Save target into config.xml, overriding already existing settings
+                        // Save target into nodekit.json, overriding already existing settings
                         events.emit('log', '--save flag or autosave detected');
-                        events.emit('log', 'Saving ' + platform + '@' + spec + ' into config.xml file ...');
+                        events.emit('log', 'Saving ' + platform + '@' + spec + ' into nodekit.json file ...');
                         cfg.removeEngine(platform);
                         cfg.addEngine(platform, spec);
                         cfg.write();
@@ -254,12 +254,12 @@ function save(hooksRunner, projectRoot, opts) {
     var xml = nodekit_util.projectConfig(projectRoot);
     var cfg = new ConfigParser(xml);
 
-    // First, remove all platforms that are already in config.xml
+    // First, remove all platforms that are already in nodekit.json
     cfg.getEngines().forEach(function(engine){
         cfg.removeEngine(engine.name);
     });
 
-    // Save installed platforms into config.xml
+    // Save installed platforms into nodekit.json
     return platformMetadata.getPlatformVersions(projectRoot).then(function(platformVersions){
         platformVersions.forEach(function(platVer){
             cfg.addEngine(platVer.platform, getSpecString(platVer.version));
@@ -364,7 +364,7 @@ function getVersionFromConfigFile(platform, cfg) {
         throw new NodeKitError('Invalid platform: ' + platform);
     }
 
-    // Get appropriate version from config.xml
+    // Get appropriate version from nodekit.json
     var engine = _.find(cfg.getEngines(), function(eng){
         return eng.name.toLowerCase() === platform.toLowerCase();
     });
@@ -390,7 +390,7 @@ function remove(hooksRunner, projectRoot, targets, opts) {
                 var platformName = target.split('@')[0];
                 var xml = nodekit_util.projectConfig(projectRoot);
                 var cfg = new ConfigParser(xml);
-                events.emit('log', 'Removing platform ' + target + ' from config.xml file...');
+                events.emit('log', 'Removing platform ' + target + ' from nodekit.json file...');
                 cfg.removeEngine(platformName);
                 cfg.write();
             });
@@ -671,7 +671,7 @@ function installPluginsForNewPlatform(platform, projectRoot, opts) {
     var plugins_dir = path.join(projectRoot, 'plugins');
 
     // Get a list of all currently installed plugins, ignoring those that have already been installed for this platform
-    // during prepare (installed from config.xml).
+    // during prepare (installed from nodekit.json).
     var platformJson = PlatformJson.load(plugins_dir, platform);
     var plugins = nodekit_util.findPlugins(plugins_dir).filter(function (plugin) {
         return !platformJson.isPluginInstalled(plugin);

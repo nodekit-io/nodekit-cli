@@ -157,7 +157,7 @@ module.exports = function plugin(command, targets, opts) {
                             var pluginVariables = pluginInfo.getPreferences();
                             opts.cli_variables = opts.cli_variables || {};
                             var pluginEntry = cfg.getPlugin(pluginInfo.id);
-                            // Get variables from config.xml
+                            // Get variables from nodekit.json
                             var configVariables = pluginEntry ? pluginEntry.variables : {};
                             // Add config variable if it's missing in cli_variables
                             Object.keys(configVariables).forEach(function(variable) {
@@ -208,8 +208,8 @@ module.exports = function plugin(command, targets, opts) {
                             .thenResolve(pluginInfo);
                         })
                         .then(function(pluginInfo){
-                            // save to config.xml
-                            if(saveToConfigXmlOn(config_json, opts)){
+                            // save to nodekit.json
+                            if(saveToNodeKitJsonOn(config_json, opts)){
                                 var src = parseSource(target, opts);
                                 var attributes = {
                                     name: pluginInfo.id
@@ -234,7 +234,7 @@ module.exports = function plugin(command, targets, opts) {
                                 cfg.addPlugin(attributes, opts.cli_variables);
                                 cfg.write();
 
-                                events.emit('results', 'Saved plugin info for "' + pluginInfo.id + '" to config.xml');
+                                events.emit('results', 'Saved plugin info for "' + pluginInfo.id + '" to nodekit.json');
                             }
                         });
                     }, Q());
@@ -290,14 +290,14 @@ module.exports = function plugin(command, targets, opts) {
                             // TODO: Should only uninstallPlugin when no platforms have it.
                             return plugman.raw.uninstall.uninstallPlugin(target, pluginPath, opts);
                         }).then(function(){
-                            //remove plugin from config.xml
-                            if(saveToConfigXmlOn(config_json, opts)){
-                                events.emit('log', 'Removing plugin ' + target + ' from config.xml file...');
+                            //remove plugin from nodekit.json
+                            if(saveToNodeKitJsonOn(config_json, opts)){
+                                events.emit('log', 'Removing plugin ' + target + ' from nodekit.json file...');
                                 var configPath = nodekit_util.projectConfig(projectRoot);
                                 if(fs.existsSync(configPath)){//should not happen with real life but needed for tests
-                                    var configXml = new ConfigParser(configPath);
-                                    configXml.removePlugin(target);
-                                    configXml.write();
+                                    var nodekitJson = new ConfigParser(configPath);
+                                    nodekitJson.removePlugin(target);
+                                    nodekitJson.write();
                                 }
                             }
                         })
@@ -336,7 +336,7 @@ module.exports = function plugin(command, targets, opts) {
                     return hooksRunner.fire('after_plugin_search', opts);
                 });
             case 'save':
-                // save the versions/folders/git-urls of currently installed plugins into config.xml
+                // save the versions/folders/git-urls of currently installed plugins into nodekit.json
                 return save(projectRoot, opts);
             default:
                 return list(projectRoot, hooksRunner);
@@ -355,15 +355,15 @@ function determinePluginTarget(projectRoot, cfg, target, fetchOptions) {
         return Q(target);
     }
 
-    // If no version is specified, retrieve the version (or source) from config.xml
-    events.emit('verbose', 'No version specified for ' + parsedSpec.package + ', retrieving version from config.xml');
+    // If no version is specified, retrieve the version (or source) from nodekit.json
+    events.emit('verbose', 'No version specified for ' + parsedSpec.package + ', retrieving version from nodekit.json');
     var ver = getVersionFromConfigFile(id, cfg);
 
     if (nodekit_util.isUrl(ver) || nodekit_util.isDirectory(ver) || pluginSpec.parse(ver).scope) {
         return Q(ver);
     }
 
-    // If version exists in config.xml, use that
+    // If version exists in nodekit.json, use that
     if (ver) {
         return Q(id + '@' + ver);
     }
@@ -373,7 +373,7 @@ function determinePluginTarget(projectRoot, cfg, target, fetchOptions) {
     // their package.json
     var shouldUseNpmInfo = !fetchOptions.searchpath && !fetchOptions.noregistry;
 
-    events.emit('verbose', 'No version for ' + parsedSpec.package + ' saved in config.xml');
+    events.emit('verbose', 'No version for ' + parsedSpec.package + ' saved in nodekit.json');
     if(shouldUseNpmInfo) {
         events.emit('verbose', 'Attempting to use npm info for ' + parsedSpec.package + ' to choose a compatible release');
     } else {
@@ -412,7 +412,7 @@ function save(projectRoot, opts){
     var xml = nodekit_util.projectConfig(projectRoot);
     var cfg = new ConfigParser(xml);
 
-    // First, remove all pre-existing plugins from config.xml
+    // First, remove all pre-existing plugins from nodekit.json
     cfg.getPluginIdList().forEach(function(plugin){
         cfg.removePlugin(plugin);
     });
@@ -433,7 +433,7 @@ function save(projectRoot, opts){
         var plugin = plugins[pluginName];
         var pluginSource = plugin.source;
 
-        // If not a top-level plugin, skip it, don't save it to config.xml
+        // If not a top-level plugin, skip it, don't save it to nodekit.json
         if(!plugin.is_top_level){
             return;
         }
@@ -469,7 +469,7 @@ function getVersionFromConfigFile(plugin, cfg){
     var parsedSpec = pluginSpec.parse(plugin);
     var pluginEntry = cfg.getPlugin(parsedSpec.id);
     if (!pluginEntry && !parsedSpec.scope) {
-        // If the provided plugin id is in the new format (e.g. nodekit-plugin-camera), it might be stored in config.xml
+        // If the provided plugin id is in the new format (e.g. nodekit-plugin-camera), it might be stored in nodekit.json
         // under the old format (e.g. io.nodekit.camera), so check for that.
         var oldStylePluginId = pluginMapper[parsedSpec.id];
         if (oldStylePluginId) {
@@ -537,7 +537,7 @@ function getInstalledPlugins(projectRoot) {
     return pluginInfoProvider.getAllWithinSearchPath(pluginsDir);
 }
 
-function saveToConfigXmlOn(config_json, options){
+function saveToNodeKitJsonOn(config_json, options){
     options = options || {};
     var autosave =  config_json.auto_save_plugins || false;
     return autosave || options.save;

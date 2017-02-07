@@ -26,7 +26,7 @@
 
 NodeKit::NodeKit(const QDir &appDir, QQuickItem *item, QObject *parent)
     : QObject(parent), _item(item), _app(appDir),
-      _config(_app.absoluteFilePath("../config.xml")) {
+      _config(_app.absoluteFilePath("../nodekit.json")) {
 
     qDebug() << "Work directory: " << _app.absolutePath();
 

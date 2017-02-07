@@ -1,5 +1,5 @@
 {
-  "name": "nodekit-windows",
+  "name": "nodekit-cli-lib",
   "version": "1.0.0",
   "description": "Template for NodeKit Command Line",
   "author": "OffGrid Networks",

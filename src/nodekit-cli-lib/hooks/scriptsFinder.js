@@ -26,7 +26,7 @@ var path = require('path'),
 
 /**
  * Implements logic to retrieve hook script files defined in special folders and configuration
- * files: config.xml, hooks/hook_type, plugins/../plugin.xml, etc
+ * files: nodekit.json, hooks/hook_type, plugins/../plugin.xml, etc
  */
 module.exports  = {
     /**
@@ -44,7 +44,7 @@ module.exports  = {
 
 /**
  * Returns script files defined on application level.
- * They are stored in .nodekit/hooks folders and in config.xml.
+ * They are stored in .nodekit/hooks folders and in nodekit.json.
  */
 function getApplicationHookScripts(hook, opts) {
     // args check
@@ -53,7 +53,7 @@ function getApplicationHookScripts(hook, opts) {
     }
     return getApplicationHookScriptsFromDir(path.join(opts.projectRoot, '.nodekit', 'hooks', hook))
         .concat(getApplicationHookScriptsFromDir(path.join(opts.projectRoot, 'hooks', hook)))
-        .concat(getScriptsFromConfigXml(hook, opts));
+        .concat(getScriptsFromNodeKitJson(hook, opts));
 }
 
 /**
@@ -100,13 +100,13 @@ function getApplicationHookScriptsFromDir(dir) {
 }
 
 /**
- * Gets all scripts defined in config.xml with the specified type and platforms.
+ * Gets all scripts defined in nodekit.json with the specified type and platforms.
  */
-function getScriptsFromConfigXml(hook, opts) {
+function getScriptsFromNodeKitJson(hook, opts) {
     var configPath = nodekitUtil.projectConfig(opts.projectRoot);
-    var configXml = new ConfigParser(configPath);
+    var nodekitJson = new ConfigParser(configPath);
 
-    return configXml.getHookScripts(hook, opts.nodekit.platforms).map(function(scriptElement) {
+    return nodekitJson.getHookScripts(hook, opts.nodekit.platforms).map(function(scriptElement) {
         return {
             path: scriptElement.attrib.src,
             fullPath: path.join(opts.projectRoot, scriptElement.attrib.src)

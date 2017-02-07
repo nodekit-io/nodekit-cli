@@ -29,7 +29,7 @@ var execSync     = require('child_process').execSync;
 // paths
 var platformRoot = path.join(__dirname, '..', '..');
 var projectRoot  = path.join(platformRoot, '..', '..');
-var configPath   = path.join(projectRoot, 'config.xml');
+var configPath   = path.join(projectRoot, 'nodekit.json');
 
 //constants
 var APP_TRACING_LOG = 'Microsoft-Windows-AppHost/ApplicationTracing';

@@ -385,11 +385,11 @@ var checkFns = [checkOS, checkMSBuild, checkVS, checkWinSdk, checkPhoneSdk];
 var config = null;
 function getConfig() {
     try {
-        config = config || new ConfigParser(path.join(__dirname, '../../config.xml'));
+        config = config || new ConfigParser(path.join(__dirname, '../../nodekit.json'));
         return Q(config);
     } catch (e) {
         return Q.reject(new NodeKitError('Can\'t check requirements for Windows platform.' +
-            'The config.xml file is either missing or malformed.'));
+            'The nodekit.json file is either missing or malformed.'));
     }
 }
 

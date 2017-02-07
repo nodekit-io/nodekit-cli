@@ -132,7 +132,7 @@ Maintenant le `nodekit` et `plugman` dans votre chemin d'accès sont les version
 Une application de NodeKit construite avec `nodekit-cli` aura la structure de répertoire suivante :
 
     myApp/
-    |-- config.xml
+    |-- nodekit.json
     |-- hooks/
     |-- merges/
     | | |-- android/
@@ -171,9 +171,9 @@ Après avoir construit les projets iOS et Android, l'application Android contien
 
 Contient des artefacts de web du projet, tels que des fichiers .html, .css et .js. Ce sont vos ressources de l'application principale. Ils seront copiés sur un `nodekit préparer` au répertoire app de chaque plate-forme.
 
-### Votre couverture : config.xml
+### Votre couverture : nodekit.json
 
-Ce fichier est ce que vous devriez être édition pour modifier les métadonnées de votre application. Toute fois que vous exécutez des commandes de nodekit-cli, l'outil va regarder le contenu du `fichier config.xml` et utiliser toutes les informations pertinentes de ce fichier pour définir les informations de l'application native. NodeKit-cli prend en charge la modification des données de votre application via les éléments suivants dans le fichier `config.xml` :
+Ce fichier est ce que vous devriez être édition pour modifier les métadonnées de votre application. Toute fois que vous exécutez des commandes de nodekit-cli, l'outil va regarder le contenu du `fichier nodekit.json` et utiliser toutes les informations pertinentes de ce fichier pour définir les informations de l'application native. NodeKit-cli prend en charge la modification des données de votre application via les éléments suivants dans le fichier `nodekit.json` :
 
   * Le nom d'utilisateur peut être modifié via le contenu de l'élément `<name>` .
   * Le nom du package (AKA bundle identificateur ou application id) peut être modifié par l'intermédiaire de l'attribut `id` de l'élément de niveau supérieur `< widget >` .

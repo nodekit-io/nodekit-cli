@@ -160,15 +160,15 @@ def doPromptForPassword(msg) {
     }
 }
 
-def doGetConfigXml() {
-    def xml = file("res/xml/config.xml").getText()
+def doGetNodeKitJson() {
+    def xml = file("res/raw/nodekit.json").getText()
     // Disable namespace awareness since NodeKit doesn't use them properly
     return new XmlParser(false, false).parseText(xml)
 }
 
 def doGetConfigPreference(name, defaultValue) {
     name = name.toLowerCase()
-    def root = doGetConfigXml()
+    def root = doGetNodeKitJson()
 
     def ret = defaultValue
     root.preference.each { it ->
@@ -193,8 +193,8 @@ ext {
 
     // These helpers can be used by plugins / projects and will not change.
     cdvHelpers = {}
-    // Returns a XmlParser for the config.xml. Added in 4.1.0.
-    cdvHelpers.getConfigXml = { doGetConfigXml() }
+    // Returns a XmlParser for the nodekit.json. Added in 4.1.0.
+    cdvHelpers.getNodeKitJson = { doGetNodeKitJson() }
     // Returns the value for the desired <preference>. Added in 4.1.0.
     cdvHelpers.getConfigPreference = { name, defaultValue -> doGetConfigPreference(name, defaultValue) }
 }

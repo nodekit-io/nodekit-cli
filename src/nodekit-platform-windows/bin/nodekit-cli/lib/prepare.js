@@ -51,14 +51,14 @@ var TEMPLATE =
 /** Note: this is only for backward compatibility, since it is being called directly from windows_parser */
 module.exports.applyPlatformConfig = function() {
     var projectRoot = path.join(__dirname, '../..');
-    var appConfig = new ConfigParser(path.join(projectRoot, '../../config.xml'));
+    var appConfig = new ConfigParser(path.join(projectRoot, '../../nodekit.json'));
     updateProjectAccordingTo(appConfig);
     copyImages(appConfig, projectRoot);
 };
 
 module.exports.updateBuildConfig = function(buildConfig) {
     var projectRoot = path.join(__dirname, '../..');
-    var config = new ConfigParser(path.join(projectRoot, 'config.xml'));
+    var config = new ConfigParser(path.join(projectRoot, 'nodekit.json'));
 
     // if no buildConfig is provided dont do anything
     buildConfig = buildConfig || {};
@@ -70,13 +70,13 @@ module.exports.updateBuildConfig = function(buildConfig) {
 
     var root = new et.Element('Project');
     root.set('xmlns', 'http://schemas.microsoft.com/developer/msbuild/2003');
-    var buildConfigXML =  new et.ElementTree(root);
+    var buildNodeKitJson =  new et.ElementTree(root);
     var propertyGroup = new et.Element('PropertyGroup');
     var itemGroup = new et.Element('ItemGroup');
 
     // Append PropertyGroup and ItemGroup
-    buildConfigXML.getroot().append(propertyGroup);
-    buildConfigXML.getroot().append(itemGroup);
+    buildNodeKitJson.getroot().append(propertyGroup);
+    buildNodeKitJson.getroot().append(itemGroup);
 
     // packageCertificateKeyFile - defaults to 'NodeKitApp_TemporaryKey.pfx'
     var packageCertificateKeyFile = config.packageCertificateKeyFile || 'NodeKitApp_TemporaryKey.pfx';
@@ -110,7 +110,7 @@ module.exports.updateBuildConfig = function(buildConfig) {
         path.join(projectRoot, 'NodeKitAppRelease.projitems') :
         path.join(projectRoot, 'NodeKitAppDebug.projitems');
 
-    fs.writeFileSync(buildConfigFileName, TEMPLATE + buildConfigXML.write({indent: 2, xml_declaration: false}), 'utf-8');
+    fs.writeFileSync(buildConfigFileName, TEMPLATE + buildNodeKitJson.write({indent: 2, xml_declaration: false}), 'utf-8');
 };
 
 function updateManifestFile (config, manifestPath) {
@@ -185,7 +185,7 @@ function applyCoreProperties(config, manifest) {
     manifest.getProperties().setDescription(description);
     // 'Description' attribute is required for VisualElements node (see
     // https://msdn.microsoft.com/en-us/library/windows/apps/br211471.aspx),
-    // so we set it to '<description>' from config.xml or default value
+    // so we set it to '<description>' from nodekit.json or default value
     manifest.getVisualElements().setDescription(description || DEFAULT_DESCRIPTION);
 
     // CB-9410: Get a display name and publisher display name.  In the Windows Store, certain
@@ -203,7 +203,7 @@ function applyCoreProperties(config, manifest) {
 
 function applyStartPage(config, manifest, targetingWin10) {
     // If not specified, set default value
-    // http://nodekit.io/docs/en/edge/config_ref_index.md.html#The%20config.xml%20File
+    // http://nodekit.io/docs/en/edge/config_ref_index.md.html#The%20nodekit.json%20File
     var startPage = config.startPage() || 'index.html';
 
     var uriPrefix = '';
@@ -453,7 +453,7 @@ module.exports.prepare = function (nodekitProject, options) {
     // Update own app dir with project's app assets and plugins' assets and js-files
     return Q.when(/* NODEKIT */ true)
     .then(function () {
-        // update project according to config.xml changes.
+        // update project according to nodekit.json changes.
         return updateProjectAccordingTo(self._config, self.locations);
     })
     .then(function () {
@@ -471,15 +471,15 @@ module.exports.clean = function (options) {
     // A nodekitProject isn't passed into the clean() function, because it might have
     // been called from the platform shell script rather than the CLI. Check for the
     // noPrepare option passed in by the non-CLI clean script. If that's present, or if
-    // there's no config.xml found at the project root, then don't clean prepared files.
+    // there's no nodekit.json found at the project root, then don't clean prepared files.
     var projectRoot = path.resolve(this.root, '../..');
-    var projectConfigFile = path.join(projectRoot, 'config.xml');
+    var projectConfigFile = path.join(projectRoot, 'nodekit.json');
     if ((options && options.noPrepare) || !fs.existsSync(projectConfigFile) ||
-            !fs.existsSync(this.locations.configXml)) {
+            !fs.existsSync(this.locations.nodekitJson)) {
         return Q();
     }
 
-    var projectConfig = new ConfigParser(this.locations.configXml);
+    var projectConfig = new ConfigParser(this.locations.nodekitJson);
 
     var self = this;
     return Q().then(function () {
@@ -529,29 +529,29 @@ module.exports.addBOMSignature = addBOMSignature;
 module.exports.addBOMToFile = addBOMToFile;
 
 /**
- * Updates config files in project based on app's config.xml and config munge,
+ * Updates config files in project based on app's nodekit.json and config munge,
  *   generated by plugins.
  *
  * @param   {ConfigParser}   sourceConfig  A project's configuration that will
- *   be merged into platform's config.xml
+ *   be merged into platform's nodekit.json
  * @param   {ConfigChanges}  configMunger  An initialized ConfigChanges instance
  *   for this platform.
  * @param   {Object}         locations     A map of locations for this platform
  *
  * @return  {ConfigParser}                 An instance of ConfigParser, that
  *   represents current project's configuration. When returned, the
- *   configuration is already dumped to appropriate config.xml file.
+ *   configuration is already dumped to appropriate nodekit.json file.
  */
 function updateConfigFilesFrom(sourceConfig, configMunger, locations) {
     // First cleanup current config and merge project's one into own
-    var defaultConfig = locations.defaultConfigXml;
-    var ownConfig = locations.configXml;
+    var defaultConfig = locations.defaultNodeKitJson;
+    var ownConfig = locations.nodekitJson;
     var sourceCfg = sourceConfig.path;
-    // If defaults.xml is present, overwrite platform config.xml with it.
+    // If defaults_nodekit.json is present, overwrite platform nodekit.json with it.
     // Otherwise save whatever is there as defaults so it can be
     // restored or copy project config into platform if none exists.
     if (fs.existsSync(defaultConfig)) {
-        events.emit('verbose', 'Generating platform-specific config.xml from defaults for windows at ' + ownConfig);
+        events.emit('verbose', 'Generating platform-specific nodekit.json from defaults for windows at ' + ownConfig);
         shell.cp('-f', defaultConfig, ownConfig);
     } else if (fs.existsSync(ownConfig)) {
         shell.cp('-f', ownConfig, defaultConfig);
@@ -563,8 +563,8 @@ function updateConfigFilesFrom(sourceConfig, configMunger, locations) {
     // in project (including project's config)
     configMunger.reapply_global_munge().save_all();
 
-    events.emit('verbose', 'Merging project\'s config.xml into platform-specific windows config.xml');
-    // Merge changes from app's config.xml into platform's one
+    events.emit('verbose', 'Merging project\'s nodekit.json into platform-specific windows nodekit.json');
+    // Merge changes from app's nodekit.json into platform's one
     var config = new ConfigParser(ownConfig);
     xmlHelpers.mergeXml(sourceConfig.doc.getroot(),
         config.doc.getroot(), 'windows', /*clobber=*/true);

@@ -37,10 +37,10 @@ function ConfigKeeper(project_dir, plugins_dir) {
 ConfigKeeper.prototype.get = function ConfigKeeper_get(project_dir, platform, file) {
     var self = this;
 
-    // This fixes a bug with older plugins - when specifying config xml instead of res/xml/config.xml
+    // This fixes a bug with older plugins - when specifying nodekit json instead of res/raw/nodekit.json
     // https://issues.apache.org/jira/browse/CB-6414
-    if(file == 'config.xml' && platform == 'android'){
-        file = 'res/xml/config.xml';
+    if(file == 'nodekit.json' && platform == 'android'){
+        file = 'res/raw/nodekit.json';
     }
     var fake_path = path.join(project_dir, platform, file);
 

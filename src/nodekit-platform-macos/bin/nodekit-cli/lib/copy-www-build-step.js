@@ -68,6 +68,6 @@ if(code !== 0) {
     process.exit(3);
 }
 
-// Copy the config.xml file.
-shell.cp('-f', path.join(path.dirname(PROJECT_FILE_PATH), path.basename(PROJECT_FILE_PATH, '.xcodeproj'), 'config.xml'),
+// Copy the nodekit.json file.
+shell.cp('-f', path.join(path.dirname(PROJECT_FILE_PATH), path.basename(PROJECT_FILE_PATH, '.xcodeproj'), 'nodekit.json'),
     dstDir);

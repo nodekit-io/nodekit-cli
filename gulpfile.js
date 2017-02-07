@@ -130,7 +130,20 @@ function map(src, dest, cb) {
         .pipe(replace(/var pkg = require\('\.\.\/\.\.\/\.\.\/package'\);/g, "var pkg = require('../../package');"))
         .pipe(replace(/SWIFT_OBJC_BRIDGING_HEADER =/g, "// *NODEKIT* SWIFT_OBJC_BRIDGING_HEADER ="))
         .pipe(replace(/CODE_SIGN_ENTITLEMENTS =/g, "// *NODEKIT* CODE_SIGN_ENTITLEMENTS ="))
-        .pipe(f2.restore)
+        .pipe(replace(/config\.xml/g, "nodekit.json"))
+        .pipe(replace(/Config\.xml/g, "nodekit.json"))
+        .pipe(replace(/config_xml/g, "nodekit_json"))
+       .pipe(replace(/config xml/g, "nodekit json"))
+       .pipe(replace(/configxml/g, "nodekitjson"))
+       .pipe(replace(/configXML/g, "nodekitJson"))
+       .pipe(replace(/Configxml/g, "NodeKitJson"))
+       .pipe(replace(/configXml/g, "nodekitJson"))
+       .pipe(replace(/ConfigXML/g, "NodeKitJson"))
+       .pipe(replace(/ConfigXml/g, "NodeKitJson"))
+        .pipe(replace(/config\/xml/g, "nodekit/json"))
+        .pipe(replace(/defaults.xml/g, "defaults_nodekit.json"))
+        .pipe(replace(/res\/xml\/nodekit/g, "res/raw/nodekit"))
+       .pipe(f2.restore)
         .pipe(rename(function (path) {
             path.basename = indexify(path);
             path.dirname = (path.dirname == "src") ? "src" : path.dirname;
@@ -147,8 +160,16 @@ function map(src, dest, cb) {
             path.dirname = path.dirname.replace(/^bin\/templates\/$/ig, "bin/templates/project/");
             path.dirname = path.dirname.replace(/^bin\/templates\/images\/$/ig, "bin/templates/project/images/");
             path.dirname = path.dirname.replace(/^[qml|xml]/ig, function(match){ return "bin/templates/project/" + match});
-             path.dirname = path.dirname.replace(/^NodeKitUbuntu/ig, "bin/templates/framework");
-        }))
+            path.dirname = path.dirname.replace(/^NodeKitUbuntu/ig, "bin/templates/framework");
+            if ((path.extname == '.xml') && (path.basename == 'defaults' )) { 
+               path.extname = '.json';
+               path.basename = 'defaults_nodekit'
+           }  
+           if ((path.extname == '.xml') && (path.basename == 'config' )) { 
+               path.extname = '.json';
+               path.basename = 'nodekit'
+           }
+        }))  
         .pipe(gulp.dest(dest))
         .on('end', cb);
 }

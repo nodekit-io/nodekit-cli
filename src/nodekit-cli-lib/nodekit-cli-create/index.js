@@ -240,8 +240,8 @@ module.exports = function(dir, optionalId, optionalName, cfg, extEvents) {
 
         var paths = {};
 
-        // get stock config.xml, used if template does not contain config.xml
-        paths.configXml = path.join(require('nodekit-sample').dirname, 'config.xml');
+        // get stock nodekit.json, used if template does not contain nodekit.json
+        paths.nodekitJson = path.join(require('nodekit-sample').dirname, 'nodekit.json');
 
         // get stock app; used if template does not contain app
         paths.app = path.join(require('nodekit-sample').dirname, 'app');
@@ -262,16 +262,16 @@ module.exports = function(dir, optionalId, optionalName, cfg, extEvents) {
             if (cfg.lib.app.template)
                 copyTemplateFiles(import_from_path, dir, isSubDir);
 
-            // If --link, link merges, hooks, app, and config.xml (and/or copy to root)
+            // If --link, link merges, hooks, app, and nodekit.json (and/or copy to root)
             if (!!cfg.lib.app.link)
                 linkFromTemplate(import_from_path, dir);
 
             // If following were not copied/linked from template, copy from stock app hello world
             copyIfNotExists(paths.app, path.join(dir, 'app'));
             copyIfNotExists(paths.hooks, path.join(dir, 'hooks'));
-            var configXmlExists = projectConfig(dir); //moves config to root if in app
-            if (paths.configXml && !configXmlExists) {
-                shell.cp(paths.configXml, path.join(dir, 'config.xml'));
+            var nodekitJsonExists = projectConfig(dir); //moves config to root if in app
+            if (paths.nodekitJson && !nodekitJsonExists) {
+                shell.cp(paths.nodekitJson, path.join(dir, 'nodekit.json'));
             }
         } catch (e) {
             if (!dirAlreadyExisted) {
@@ -310,10 +310,10 @@ module.exports = function(dir, optionalId, optionalName, cfg, extEvents) {
         }
         //NODEKIT-END
 
-        var configPath = path.join(dir, 'config.xml');
-        // only update config.xml if not a symlink
+        var configPath = path.join(dir, 'nodekit.json');
+        // only update nodekit.json if not a symlink
         if(!fs.lstatSync(configPath).isSymbolicLink()) {
-            // Write out id and name to config.xml; set version to 1.0.0 (to match package.json default version)
+            // Write out id and name to nodekit.json; set version to 1.0.0 (to match package.json default version)
             var conf = new ConfigParser(configPath);
             if (cfg.id) conf.setPackageName(cfg.id);
             if (cfg.name) conf.setName(cfg.name);
@@ -386,8 +386,8 @@ function isUrl(value) {
  * @return {String or False} location of config file; if none exists, returns false
  */
 function projectConfig(projectDir) {
-    var rootPath = path.join(projectDir, 'config.xml');
-    var appPath = path.join(projectDir, 'app', 'config.xml');
+    var rootPath = path.join(projectDir, 'nodekit.json');
+    var appPath = path.join(projectDir, 'app', 'nodekit.json');
     if (fs.existsSync(rootPath)) {
         return rootPath;
     } else if (fs.existsSync(appPath)) {
@@ -443,8 +443,8 @@ function writeToConfigJson(project_root, opts, autoPersist) {
 /**
  * Removes existing files and symlinks them if they exist.
  * Symlinks folders: app, merges, hooks 
- * Symlinks file: config.xml (but only if it exists outside of the app folder)
- * If config.xml exists inside of template/app, COPY (not link) it to project/
+ * Symlinks file: nodekit.json (but only if it exists outside of the app folder)
+ * If nodekit.json exists inside of template/app, COPY (not link) it to project/
  * */
  function linkFromTemplate(templateDir, projectDir) {
     var linkSrc, linkDst, linkFolders, copySrc, copyDst;
@@ -463,7 +463,7 @@ function writeToConfigJson(project_root, opts, autoPersist) {
         linkSrc = path.resolve(templateDir);
         linkDst = path.join(projectDir, 'app');
         rmlinkSync(linkSrc, linkDst, 'dir');
-        copySrc = path.join(templateDir, 'config.xml');
+        copySrc = path.join(templateDir, 'nodekit.json');
     } else {
         linkFolders = ['app', 'merges', 'hooks'];
         // Link each folder
@@ -472,13 +472,13 @@ function writeToConfigJson(project_root, opts, autoPersist) {
             linkDst = path.join(projectDir, linkFolders[i]);
             rmlinkSync(linkSrc, linkDst, 'dir');
         }
-        linkSrc = path.join(templateDir, 'config.xml');
-        linkDst = path.join(projectDir, 'config.xml');
+        linkSrc = path.join(templateDir, 'nodekit.json');
+        linkDst = path.join(projectDir, 'nodekit.json');
         rmlinkSync(linkSrc, linkDst, 'file');
-        copySrc = path.join(templateDir, 'app', 'config.xml');
+        copySrc = path.join(templateDir, 'app', 'nodekit.json');
     }
-    // if template/app/config.xml then copy to project/config.xml
-    copyDst = path.join(projectDir, 'config.xml');
+    // if template/app/nodekit.json then copy to project/nodekit.json
+    copyDst = path.join(projectDir, 'nodekit.json');
     if (!fs.existsSync(copyDst) && fs.existsSync(copySrc)) {
         shell.cp(copySrc, projectDir);
     }

@@ -31,15 +31,15 @@ module.exports = common = {
 
         var configPaths = [
             // preferred location if nodekit >= 3.4
-            path.join(project_dir, 'config.xml'),
+            path.join(project_dir, 'nodekit.json'),
             // older location
-            path.join(app_dir || path.join(project_dir, 'app'), 'config.xml'),
+            path.join(app_dir || path.join(project_dir, 'app'), 'nodekit.json'),
         ];
 
         var nodekitRoot = nodekitUtil.isNodeKit();
         if (nodekitRoot) {
             // CB-10662 If we're in cli project then add project's config as a fallback
-            configPaths.push(path.join(nodekitRoot, 'config.xml'));
+            configPaths.push(path.join(nodekitRoot, 'nodekit.json'));
         }
 
         for (var i = 0; i < configPaths.length; i++) {

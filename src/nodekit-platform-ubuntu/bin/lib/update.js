@@ -44,7 +44,7 @@ exports.updateProject = function(projectPath) {
     shell.cp('-r', path.join(ROOT, 'bin/check_reqs'), path.join(projectPath, 'nodekit-cli'));
     shell.cp('-r', path.join(ROOT, 'bin', 'lib', 'check_reqs.js'), path.join(projectPath, 'nodekit-cli', 'lib'));
 
-    // Copy the default template including the defaults.xml for the Ubuntu platform.
+    // Copy the default template including the defaults_nodekit.json for the Ubuntu platform.
     shell.cp('-r', path.join(ROOT, 'bin', 'templates', 'project', 'nodekit-cli'), projectPath);
 
     var tmp = path.join(projectPath, 'tmp');

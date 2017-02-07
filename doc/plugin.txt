@@ -14,9 +14,9 @@ Manage project plugins
         --link ......................... When installing from a local path, creates a symbolic link
                                          instead of copying files. The extent to which files are linked
                                          varies by platform. Useful for plugin development.
-        --save ......................... Save the information for specified plugin into config.xml
+        --save ......................... Save the information for specified plugin into nodekit.json
         --shrinkwrap ................... Used together with --save, saves the
-                                         installed version numbers to config.xml
+                                         installed version numbers to nodekit.json
         --browserify ................... Compile plugin JS at build time using
                                          browserify instead of runtime.
 
@@ -28,7 +28,7 @@ Manage project plugins
                                          `npm install` to do the fetching
 
     remove <pluginid>|<name> [...] ..... Remove plugins with the given IDs/name.
-        --save ......................... Remove the information for specified plugin from config.xml
+        --save ......................... Remove the information for specified plugin from nodekit.json
 
         --fetch ........................ Removes the plugin from the project's
                                          node_modules directory. Uses
@@ -36,7 +36,7 @@ Manage project plugins
 
 
     list .............................. List currently installed plugins
-    save .............................. Saves the information for all currently added plugins to config.xml
+    save .............................. Saves the information for all currently added plugins to nodekit.json
     search [<keyword>] [...] .......... Search http://plugins.nodekit.io for plugins matching the keywords
 
 Syntax

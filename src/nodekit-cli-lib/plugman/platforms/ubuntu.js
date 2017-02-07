@@ -53,7 +53,7 @@ function findClassName(pluginxml, plugin_id) {
     if (pluginxml) {
         var platform = pluginxml.find("./platform/[@name='ubuntu']/");
         if (platform) {
-            var param = platform.find("./config-file/[@target='config.xml']/feature/param/[@name='ubuntu-package']");
+            var param = platform.find("./config-file/[@target='nodekit.json']/feature/param/[@name='ubuntu-package']");
             if (param && param.attrib) {
                 class_name = param.attrib.value;
                 return class_name;
@@ -97,7 +97,7 @@ module.exports = {
     },
 
     package_name:function (project_dir) {
-        var config_path = path.join(project_dir, 'config.xml');
+        var config_path = path.join(project_dir, 'nodekit.json');
         var widget_doc = xml_helpers.parseElementtreeSync(config_path);
         return widget_doc._root.attrib['id'];
     },

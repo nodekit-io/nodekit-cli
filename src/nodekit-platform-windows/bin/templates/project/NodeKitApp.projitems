@@ -27,7 +27,7 @@
     <Content Include="$(MSBuildThisFileDirectory)app\**" />
   </ItemGroup>
   <ItemGroup>
-    <Content Include="$(MSBuildThisFileDirectory)config.xml" />
+    <Content Include="$(MSBuildThisFileDirectory)nodekit.json" />
   </ItemGroup>
   <Import Project="NodeKitAppDebug.projitems" Condition="Exists('$(MSBuildThisFileDirectory)NodeKitAppDebug.projitems') And '$(Configuration)'=='Debug'" />
   <Import Project="NodeKitAppRelease.projitems" Condition="Exists('$(MSBuildThisFileDirectory)NodeKitAppRelease.projitems') And '$(Configuration)'!='Debug'" />

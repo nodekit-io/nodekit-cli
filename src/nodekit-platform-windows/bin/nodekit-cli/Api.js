@@ -62,8 +62,8 @@ function Api(platform, platformRootDir, eventEmitter) {
         root: self.root,
         app: path.join(self.root, 'app'),
         platformApp: path.join(self.root, 'platform_app'),
-        configXml: path.join(self.root, 'config.xml'),
-        defaultConfigXml: path.join(self.root, 'nodekit-cli/defaults.xml'),
+        nodekitJson: path.join(self.root, 'nodekit.json'),
+        defaultNodeKitJson: path.join(self.root, 'nodekit-cli/defaults_nodekit.json'),
         // NOTE: Due to platformApi spec we need to return relative paths here
         nodekitJs: 'template/app/nodekit.js',
         nodekitJsSrc: 'nodekit-js-src'

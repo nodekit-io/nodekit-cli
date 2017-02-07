@@ -19,7 +19,7 @@
 
 /*
  * This module deals with shared configuration / dependency "stuff". That is:
- * - XML configuration files such as config.xml, AndroidManifest.xml or WMAppManifest.xml.
+ * - XML configuration files such as nodekit.json, AndroidManifest.xml or WMAppManifest.xml.
  * - plist files in iOS
  * Essentially, any type of shared resources that we need to handle with awareness
  * of how potentially multiple plugins depend on a single shared resource, should be
@@ -134,9 +134,9 @@ function add_plugin_changes(pluginInfo, plugin_vars, is_top_level, should_increm
     else {
         var isConflictingInfo = is_conflicting(edit_config_changes, platform_config.config_munge, self, plugin_force);
 
-        if (isConflictingInfo.conflictWithConfigxml) {
+        if (isConflictingInfo.conflictWithNodeKitJson) {
             throw new Error(pluginInfo.id +
-                ' cannot be added. <edit-config> changes in this plugin conflicts with <edit-config> changes in config.xml. Conflicts must be resolved before plugin can be added.');
+                ' cannot be added. <edit-config> changes in this plugin conflicts with <edit-config> changes in nodekit.json. Conflicts must be resolved before plugin can be added.');
         }
         if (plugin_force) {
             NodeKitLogger.get().log(NodeKitLogger.WARN, '--force is used. edit-config will overwrite conflicts if any. Conflicting plugins may not work as expected.');
@@ -169,7 +169,7 @@ function add_plugin_changes(pluginInfo, plugin_vars, is_top_level, should_increm
 }
 
 
-// Handle edit-config changes from config.xml
+// Handle edit-config changes from nodekit.json
 PlatformMunger.prototype.add_config_changes = add_config_changes;
 function add_config_changes(config, should_increment) {
     var self = this;
@@ -192,15 +192,15 @@ function add_config_changes(config, should_increment) {
             var conflict_munge;
             var conflict_file;
 
-            if (Object.keys(isConflictingInfo.configxmlMunge.files).length !== 0) {
-                // silently remove conflicting config.xml munges so new munges can be added
-                conflict_munge = mungeutil.decrement_munge(platform_config.config_munge, isConflictingInfo.configxmlMunge);
+            if (Object.keys(isConflictingInfo.nodekitjsonMunge.files).length !== 0) {
+                // silently remove conflicting nodekit.json munges so new munges can be added
+                conflict_munge = mungeutil.decrement_munge(platform_config.config_munge, isConflictingInfo.nodekitjsonMunge);
                 for (conflict_file in conflict_munge.files) {
                     self.apply_file_munge(conflict_file, conflict_munge.files[conflict_file], /* remove = */ true);
                 }
             }
             if (Object.keys(isConflictingInfo.conflictingMunge.files).length !== 0) {
-                NodeKitLogger.get().log(NodeKitLogger.WARN, 'Conflict found, edit-config changes from config.xml will overwrite plugin.xml changes');
+                NodeKitLogger.get().log(NodeKitLogger.WARN, 'Conflict found, edit-config changes from nodekit.json will overwrite plugin.xml changes');
 
                 // remove conflicting plugin.xml munges
                 conflict_munge = mungeutil.decrement_munge(platform_config.config_munge, isConflictingInfo.conflictingMunge);
@@ -209,8 +209,8 @@ function add_config_changes(config, should_increment) {
                 }
             }
         }
-        // Add config.xml edit-config munges
-        config_munge = self.generate_config_xml_munge(config, edit_config_changes, 'config.xml');
+        // Add nodekit.json edit-config munges
+        config_munge = self.generate_nodekit_json_munge(config, edit_config_changes, 'nodekit.json');
     }
 
     self = munge_helper(should_increment, self, platform_config, config_munge);
@@ -259,9 +259,9 @@ function reapply_global_munge () {
 }
 
 // generate_plugin_config_munge
-// Generate the munge object from config.xml
-PlatformMunger.prototype.generate_config_xml_munge = generate_config_xml_munge;
-function generate_config_xml_munge(config, edit_config_changes, type) {
+// Generate the munge object from nodekit.json
+PlatformMunger.prototype.generate_nodekit_json_munge = generate_nodekit_json_munge;
+function generate_nodekit_json_munge(config, edit_config_changes, type) {
 
     var munge = { files: {} };
     var changes = edit_config_changes;
@@ -271,7 +271,7 @@ function generate_config_xml_munge(config, edit_config_changes, type) {
         return munge;
     }
 
-    if (type === 'config.xml') {
+    if (type === 'nodekit.json') {
         id = type;
     }
     else {
@@ -334,9 +334,9 @@ function generate_plugin_config_munge(pluginInfo, vars, edit_config_changes) {
 function is_conflicting(editchanges, config_munge, self, force) {
     var files = config_munge.files;
     var conflictFound = false;
-    var conflictWithConfigxml = false;
+    var conflictWithNodeKitJson = false;
     var conflictingMunge = { files: {} };
-    var configxmlMunge = { files: {} };
+    var nodekitjsonMunge = { files: {} };
     var conflictingParent;
     var conflictingPlugin;
 
@@ -370,20 +370,20 @@ function is_conflicting(editchanges, config_munge, self, force) {
                 // conflict has been found
                 conflictFound = true;
 
-                if (editchange.id === 'config.xml') {
-                    if (target[0].id === 'config.xml') {
-                        // Keep track of config.xml/config.xml edit-config conflicts
-                        mungeutil.deep_add(configxmlMunge, editchange.file, conflictingParent, target[0]);
+                if (editchange.id === 'nodekit.json') {
+                    if (target[0].id === 'nodekit.json') {
+                        // Keep track of nodekit.json/nodekit.json edit-config conflicts
+                        mungeutil.deep_add(nodekitjsonMunge, editchange.file, conflictingParent, target[0]);
                     }
                     else {
-                        // Keep track of config.xml x plugin.xml edit-config conflicts
+                        // Keep track of nodekit.json x plugin.xml edit-config conflicts
                         mungeutil.deep_add(conflictingMunge, editchange.file, conflictingParent, target[0]);
                     }
                 }
                 else {
-                    if (target[0].id === 'config.xml') {
-                        // plugin.xml cannot overwrite config.xml changes even if --force is used
-                        conflictWithConfigxml = true;
+                    if (target[0].id === 'nodekit.json') {
+                        // plugin.xml cannot overwrite nodekit.json changes even if --force is used
+                        conflictWithNodeKitJson = true;
                         return;
                     }
 
@@ -402,7 +402,7 @@ function is_conflicting(editchanges, config_munge, self, force) {
     });
 
     return {conflictFound: conflictFound, conflictingPlugin: conflictingPlugin, conflictingMunge: conflictingMunge,
-        configxmlMunge: configxmlMunge, conflictWithConfigxml:conflictWithConfigxml};
+        nodekitjsonMunge: nodekitjsonMunge, conflictWithNodeKitJson:conflictWithNodeKitJson};
 }
 
 // Go over the prepare queue and apply the config munges for each plugin

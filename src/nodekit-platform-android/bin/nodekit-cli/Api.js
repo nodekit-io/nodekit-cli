@@ -68,8 +68,8 @@ function Api(platform, platformRootDir, events) {
         app: path.join(self.root, 'assets/app'),
         res: path.join(self.root, 'res'),
         platformApp: path.join(self.root, 'platform_app'),
-        configXml: path.join(self.root, 'res/xml/config.xml'),
-        defaultConfigXml: path.join(self.root, 'nodekit-cli/defaults.xml'),
+        nodekitJson: path.join(self.root, 'res/raw/nodekit.json'),
+        defaultNodeKitJson: path.join(self.root, 'nodekit-cli/defaults_nodekit.json'),
         strings: path.join(self.root, 'res/values/strings.xml'),
         manifest: path.join(self.root, 'AndroidManifest.xml'),
         build: path.join(self.root, 'build'),
@@ -82,7 +82,7 @@ function Api(platform, platformRootDir, events) {
     if(AndroidStudio.isAndroidStudioProject(self.root) === true) {
       selfEvents.emit('log', 'Android Studio project detected');
       this.android_studio = true;
-      this.locations.configXml = path.join(self.root, 'app/src/main/res/xml/config.xml');
+      this.locations.nodekitJson = path.join(self.root, 'app/src/main/res/raw/nodekit.json');
       this.locations.strings = path.join(self.root, 'app/src/main/res/xml/strings.xml');
       this.locations.manifest = path.join(self.root, 'app/src/main/AndroidManifest.xml');
       this.locations.app = path.join(self.root, 'app/src/main/assets/app');

@@ -70,16 +70,16 @@ function handleRoot(request, response, next) {
     response.end();
 }
 
-function getPlatformHandler(platform, appDir, configXml) {
+function getPlatformHandler(platform, appDir, nodekitJson) {
     return function (request, response, next) {
         switch (url.parse(request.url).pathname) {
-            case '/' + platform + '/config.xml':
-                response.sendFile(configXml);
+            case '/' + platform + '/nodekit.json':
+                response.sendFile(nodekitJson);
                 break;
 
             case '/' + platform + '/project.json':
                 response.send({
-                    'configPath': '/' + platform + '/config.xml',
+                    'configPath': '/' + platform + '/nodekit.json',
                     'appPath': '/' + platform + '/app',
                     'appFileList': shell.find(appDir)
                         .filter(function (a) { return !fs.statSync(a).isDirectory() && !/(^\.)|(\/\.)/.test(a); })
@@ -153,7 +153,7 @@ module.exports = function server(port, opts) {
             installedPlatforms.forEach(function (platform) {
                 var locations = platforms.getPlatformApi(platform).getPlatformInfo().locations;
                 server.app.use('/' + platform + '/app', serve.static(locations.app));
-                server.app.get('/' + platform + '/*', getPlatformHandler(platform, locations.app, locations.configXml));
+                server.app.get('/' + platform + '/*', getPlatformHandler(platform, locations.app, locations.nodekitJson));
             });
 
             server.app.get('/*', getAbsolutePathHandler());

@@ -26,13 +26,13 @@ var ConfigParser = require('nodekit-cli')['nodekit-cli-common'].ConfigParser;
 var BASE_UAP_VERSION    = new Version(10, 0, 10240, 0);
 
 /**
- * A wrapper arount config.xml file, based on nodekit-common implementation,
+ * A wrapper arount nodekit.json file, based on nodekit-common implementation,
  *   extended with some windows-specific methods.
  *
  * @constructor
  * @extends {ConfigParser}
  *
- * @param  {String}  path  Path to config.xml file
+ * @param  {String}  path  Path to nodekit.json file
  */
 function WindowsConfigParser(path) {
     ConfigParser.call(this, path);

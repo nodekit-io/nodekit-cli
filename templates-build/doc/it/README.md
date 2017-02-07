@@ -132,7 +132,7 @@ Ora il `nodekit` e `plugman` nel tuo percorso sono le versioni git locale. Non d
 Un'applicazione di NodeKit costruita con `nodekit-cli` avrà la seguente struttura di directory:
 
     myApp/
-    |-- config.xml
+    |-- nodekit.json
     |-- hooks/
     |-- merges/
     | | |-- android/
@@ -171,9 +171,9 @@ Dopo la compilazione dei progetti di Android e iOS, l'applicazione Android conte
 
 Contiene gli artefatti web del progetto, ad esempio i file HTML, CSS e js. Queste sono le risorse dell'applicazione principale. Verranno copiati su un `nodekit preparare` alla directory di app di ogni piattaforma.
 
-### La coperta: config. XML
+### La coperta: nodekit.json
 
-Questo file è quello che si dovrebbe modificare per modificare i metadati dell'applicazione. Ogni volta che si eseguono tutti i comandi di nodekit-cli, lo strumento verrà esaminare il contenuto del `file config. XML` e utilizzare tutte le informazioni pertinenti da questo file per definire le informazioni di applicazione nativa. NodeKit-cli supporta la modifica dei dati dell'applicazione tramite i seguenti elementi all'interno del file `config. XML` :
+Questo file è quello che si dovrebbe modificare per modificare i metadati dell'applicazione. Ogni volta che si eseguono tutti i comandi di nodekit-cli, lo strumento verrà esaminare il contenuto del `file nodekit.json` e utilizzare tutte le informazioni pertinenti da questo file per definire le informazioni di applicazione nativa. NodeKit-cli supporta la modifica dei dati dell'applicazione tramite i seguenti elementi all'interno del file `nodekit.json` :
 
   * Il nome utente esposto può essere modificato tramite il contenuto dell'elemento `< name >` .
   * Il nome del pacchetto (id identificatore o applicazione pacchetto AKA) può essere modificato tramite l'attributo `id` dall'elemento di primo livello `< widget >` .

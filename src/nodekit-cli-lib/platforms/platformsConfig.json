@@ -2,54 +2,31 @@
     "ios": {
         "ignore": "/* EDITED FOR NODEKIT CLI TO ADD TEMPLATES */",
         "hostos": ["darwin"],
-        "parser_file": "../nodekit-cli/metadata/ios_parser",
-        "handler_file": "../plugman/platforms/ios",
         "template": "nodekit-platform-ios",
         "version": "~4.3.0",
-        "apiCompatibleSince": "4.0.0",
         "deprecated": false
     },
     "macos": {
         "hostos": ["darwin"],
-        "parser_file": "../nodekit-cli/metadata/macos_parser",
-        "handler_file": "../plugman/platforms/ios",
-        "template": "nodekit-platform-macos",
+         "template": "nodekit-platform-macos",
         "version": "~8.0.0",
-        "apiCompatibleSince": "4.0.0",
         "deprecated": false
     },
-    "osx": {
-        "hostos": ["darwin"],
-        "parser_file": "../nodekit-cli/metadata/osx_parser",
-        "handler_file": "../plugman/platforms/ios",
-        "template": "nodekit-platform-osx",
-        "version": "~4.0.1",
-        "apiCompatibleSince": "4.0.0",
-        "deprecated": true
-    },
     "android": {
-        "parser_file": "../nodekit-cli/metadata/android_parser",
-        "handler_file": "../plugman/platforms/android",
         "template": "nodekit-platform-android",
         "version": "~6.1.1",
-        "apiCompatibleSince": "5.0.0",
         "deprecated": false
     },
     "ubuntu": {
         "hostos": ["linux"],
-        "parser_file": "../nodekit-cli/metadata/ubuntu_parser",
-        "handler_file": "../plugman/platforms/ubuntu",
         "template": "nodekit-platform-android",
         "version": "~4.3.4",
         "deprecated": false
     },
     "windows": {
         "hostos": ["win32"],
-        "parser_file": "../nodekit-cli/metadata/windows_parser",
-        "handler_file": "../plugman/platforms/windows",
-        "version": "~4.4.0",
+         "version": "~4.4.0",
         "template": "nodekit-platform-windows",
-        "apiCompatibleSince": "4.3.0",
         "deprecated": false
     }
 }

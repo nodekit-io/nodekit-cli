@@ -51,14 +51,14 @@ exports.createProject = function(projectPath, packageName, projectName) {
     shell.cp('-r', path.join(ROOT, 'bin/check_reqs'), path.join(projectPath, 'nodekit-cli'));
     shell.cp('-r', path.join(ROOT, 'bin', 'lib', 'check_reqs.js'), path.join(projectPath, 'nodekit-cli', 'lib'));
 
-    // Copy the default template including the defaults.xml for the Ubuntu platform.
+    // Copy the default template including the defaults_nodekit.json for the Ubuntu platform.
     shell.cp('-r', path.join(ROOT, 'bin', 'templates', 'project', 'nodekit-cli'), projectPath);
 
     shell.mkdir(path.join(projectPath, 'app'));
     shell.cp(path.join(ROOT, 'app', 'nodekit.js'), path.join(projectPath, 'app'));
     shell.cp('-rf', path.join(ROOT, 'nodekit-js-src'), path.join(projectPath, 'platform_app'));
 
-    shell.cp('-r', path.join(ROOT, 'xml/config.xml'), projectPath);
+    shell.cp('-r', path.join(ROOT, 'xml/nodekit.json'), projectPath);
 } 
 
 

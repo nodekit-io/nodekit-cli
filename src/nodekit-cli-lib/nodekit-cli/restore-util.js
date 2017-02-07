@@ -27,12 +27,12 @@ var nodekit_util = require('./util'),
     semver      = require('semver'),
     promiseutil = require('../util/promise-util');
 
-exports.installPluginsFromConfigXML = installPluginsFromConfigXML;
-exports.installPlatformsFromConfigXML = installPlatformsFromConfigXML;
+exports.installPluginsFromNodeKitJson = installPluginsFromNodeKitJson;
+exports.installPlatformsFromNodeKitJson = installPlatformsFromNodeKitJson;
 
 
-function installPlatformsFromConfigXML(platforms, opts) {
-    events.emit('verbose', 'Checking config.xml for saved platforms that haven\'t been added to the project');
+function installPlatformsFromNodeKitJson(platforms, opts) {
+    events.emit('verbose', 'Checking nodekit.json for saved platforms that haven\'t been added to the project');
 
     var projectHome = nodekit_util.cdProjectRoot();
     var configPath = nodekit_util.projectConfig(projectHome);
@@ -56,7 +56,7 @@ function installPlatformsFromConfigXML(platforms, opts) {
     });
 
     if (!targets || !targets.length) {
-        return Q('No platforms found in config.xml that haven\'t been added to the project');
+        return Q('No platforms found in nodekit.json that haven\'t been added to the project');
     }
 
 
@@ -68,7 +68,7 @@ function installPlatformsFromConfigXML(platforms, opts) {
     // gets executed simultaneously by each platform and leads to an exception being thrown
     return promiseutil.Q_chainmap_graceful(targets, function(target) {
         if (target) {
-            events.emit('log', 'Discovered platform \"' + target + '\" in config.xml. Adding it to the project');
+            events.emit('log', 'Discovered platform \"' + target + '\" in nodekit.json. Adding it to the project');
             return nodekit.raw.platform('add', target, opts);
         }
         return Q();
@@ -78,10 +78,10 @@ function installPlatformsFromConfigXML(platforms, opts) {
 }
 
 //returns a Promise
-function installPluginsFromConfigXML(args) {
-    events.emit('verbose', 'Checking config.xml for saved plugins that haven\'t been added to the project');
+function installPluginsFromNodeKitJson(args) {
+    events.emit('verbose', 'Checking nodekit.json for saved plugins that haven\'t been added to the project');
 
-    //Install plugins that are listed on config.xml
+    //Install plugins that are listed on nodekit.json
     var projectRoot = nodekit_util.cdProjectRoot();
     var configPath = nodekit_util.projectConfig(projectRoot);
     var cfg = new ConfigParser(configPath);
@@ -90,7 +90,7 @@ function installPluginsFromConfigXML(args) {
     // Get all configured plugins
     var plugins = cfg.getPluginIdList();
     if (0 === plugins.length) {
-        return Q('No plugins found in config.xml that haven\'t been added to the project');
+        return Q('No plugins found in nodekit.json that haven\'t been added to the project');
     }
 
 
@@ -108,7 +108,7 @@ function installPluginsFromConfigXML(args) {
             // Plugin already exists
             return Q();
         }
-        events.emit('log', 'Discovered plugin "' + featureId + '" in config.xml. Adding it to the project');
+        events.emit('log', 'Discovered plugin "' + featureId + '" in nodekit.json. Adding it to the project');
         var pluginEntry = cfg.getPlugin(featureId);
 
         // Install from given URL if defined or using a plugin id. If spec isn't a valid version or version range,
@@ -132,7 +132,7 @@ function installPluginsFromConfigXML(args) {
         return plugin('add', installFrom, options);
     }, function (error) {
         // CB-10921 emit a warning in case of error
-        var msg = 'Failed to restore plugin \"' + pluginName + '\" from config.xml. ' +
+        var msg = 'Failed to restore plugin \"' + pluginName + '\" from nodekit.json. ' +
             'You might need to try adding it again. Error: ' + error;
         events.emit('warn', msg);
     });

@@ -33,7 +33,7 @@ module.exports = {
 
 
         if (!config.author()) {
-            logger.error("\nconfig.xml should contain author");
+            logger.error("\nnodekit.json should contain author");
             process.exit(1);
         }
 

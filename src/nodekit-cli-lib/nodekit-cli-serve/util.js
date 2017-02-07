@@ -81,7 +81,7 @@ function getPlatformAppRoot(nodekitProjectRoot, platformName) {
 
 function isRootDir(dir) {
     if (fs.existsSync(path.join(dir, 'app'))) {
-        if (fs.existsSync(path.join(dir, 'config.xml'))) {
+        if (fs.existsSync(path.join(dir, 'nodekit.json'))) {
             // For sure is.
             if (fs.existsSync(path.join(dir, 'platforms'))) {
                 return 2;
@@ -90,7 +90,7 @@ function isRootDir(dir) {
             }
         }
         // Might be (or may be under platforms/).
-        if (fs.existsSync(path.join(dir, 'app', 'config.xml'))) {
+        if (fs.existsSync(path.join(dir, 'app', 'nodekit.json'))) {
             return 1;
         }
     }

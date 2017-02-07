@@ -34,10 +34,10 @@ module.exports.update = function (destinationDir, options) {
         return Q.reject(new NodeKitError('The given path to the project does not exist: ' + destinationDir));
     }
 
-    var projectConfig = path.join(destinationDir, 'config.xml');
+    var projectConfig = path.join(destinationDir, 'nodekit.json');
     if (!fs.existsSync(projectConfig)){
         return Q.reject(new NodeKitError('Can\'t update project at ' + destinationDir +
-            '. config.xml does not exist in destination directory'));
+            '. nodekit.json does not exist in destination directory'));
     }
 
     var guid;

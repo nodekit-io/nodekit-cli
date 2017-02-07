@@ -76,7 +76,7 @@ module.exports.run = function run (buildOptions) {
     });
 };
 
-// returns list of projects to be built based on config.xml and additional parameters (-appx)
+// returns list of projects to be built based on nodekit.json and additional parameters (-appx)
 module.exports.getBuildTargets  = function(isWinSwitch, isPhoneSwitch, projOverride) {
 
     // apply build target override if one was specified
@@ -94,13 +94,13 @@ module.exports.getBuildTargets  = function(isWinSwitch, isPhoneSwitch, projOverr
         }
     }
 
-    var configXML = new ConfigParser(path.join(ROOT, 'config.xml'));
+    var nodekitJson = new ConfigParser(path.join(ROOT, 'nodekit.json'));
     var targets = [];
     var noSwitches = !(isPhoneSwitch || isWinSwitch);
 
     // Windows
     if (isWinSwitch || noSwitches) { // if --win or no arg
-        var windowsTargetVersion = configXML.getWindowsTargetVersion();
+        var windowsTargetVersion = nodekitJson.getWindowsTargetVersion();
         switch(windowsTargetVersion.toLowerCase()) {
             case '8':
             case '8.0':
@@ -119,7 +119,7 @@ module.exports.getBuildTargets  = function(isWinSwitch, isPhoneSwitch, projOverr
 
     // Windows Phone
     if (isPhoneSwitch || noSwitches) { // if --phone or no arg
-        var windowsPhoneTargetVersion = configXML.getWindowsPhoneTargetVersion();
+        var windowsPhoneTargetVersion = nodekitJson.getWindowsPhoneTargetVersion();
         switch(windowsPhoneTargetVersion.toLowerCase()) {
             case '8.1':
                 targets.push(projFiles.phone);
@@ -392,13 +392,13 @@ function clearIntermediatesAndGetPackage(bundleTerms, config, hasAnyCpu) {
 // Can update buildConfig in the following ways:
 //  * Sets targetProject property, the project to launch when complete
 function getBuildTargets(buildConfig) {
-    var configXML = new ConfigParser(path.join(ROOT, 'config.xml'));
+    var nodekitJson = new ConfigParser(path.join(ROOT, 'nodekit.json'));
     var targets = [];
     var noSwitches = !(buildConfig.phone || buildConfig.win);
 
     // Windows
     if (buildConfig.win || noSwitches) { // if --win or no arg
-        var windowsTargetVersion = configXML.getWindowsTargetVersion();
+        var windowsTargetVersion = nodekitJson.getWindowsTargetVersion();
         switch(windowsTargetVersion) {
             case '8':
             case '8.0':
@@ -417,7 +417,7 @@ function getBuildTargets(buildConfig) {
 
     // Windows Phone
     if (buildConfig.phone || noSwitches) { // if --phone or no arg
-        var windowsPhoneTargetVersion = configXML.getWindowsPhoneTargetVersion();
+        var windowsPhoneTargetVersion = nodekitJson.getWindowsPhoneTargetVersion();
         switch(windowsPhoneTargetVersion) {
             case '8.1':
                 targets.push(projFiles.phone);

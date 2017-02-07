@@ -44,7 +44,7 @@ function prepare(options) {
         var hooksRunner = new HooksRunner(projectRoot);
         return hooksRunner.fire('before_prepare', options)
         .then(function(){
-            return restore.installPlatformsFromConfigXML(options.platforms, { searchpath : options.searchpath, fetch : options.fetch, restoring : true });
+            return restore.installPlatformsFromNodeKitJson(options.platforms, { searchpath : options.searchpath, fetch : options.fetch, restoring : true });
         })
         .then(function(){
             options = nodekit_util.preProcessOptions(options);
@@ -64,7 +64,7 @@ function prepare(options) {
             });
             return hooksRunner.fire('after_prepare', options);
         }).then(function () {
-            return restore.installPluginsFromConfigXML(options);
+            return restore.installPluginsFromNodeKitJson(options);
         });
     });
 }
@@ -95,7 +95,7 @@ function preparePlatforms (platformList, projectRoot, options) {
         .then(function () {
             // platformApi prepare takes care of all functionality
             // which previously had been executed by nodekit.prepare:
-            //   - reset config.xml and then merge changes from project's one,
+            //   - reset nodekit.json and then merge changes from project's one,
             //   - update app directory from project's one and merge assets from platform_app,
             //   - reapply config changes, made by plugins,
             //   - update platform's project
@@ -120,7 +120,7 @@ function preparePlatforms (platformList, projectRoot, options) {
                 }
             })
             .then(function () {
-                // Handle edit-config in config.xml
+                // Handle edit-config in nodekit.json
                 var platformRoot = path.join(projectRoot, 'platforms', platform);
                 var platformJson = PlatformJson.load(platformRoot, platform);
                 var munger = new PlatformMunger(platform, platformRoot, platformJson);
