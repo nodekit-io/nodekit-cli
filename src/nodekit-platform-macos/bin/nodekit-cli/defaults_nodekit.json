@@ -1,38 +1,13 @@
 {
-    "$xmlns": "http://w3.org/ns/widgets",
-    "$id": "io.nodekit.helloNodeKit",
-    "$version": "4.0.0",
-    "preference": [
-        {
-            "$name": "AllowInlineMediaPlayback",
-            "$value": "true"
-        },
-        {
-            "$name": "BackupWebStorage",
-            "$value": "cloud"
-        },
-        {
-            "$name": "DisallowOverscroll",
-            "$value": "false"
-        },
-        {
-            "$name": "EnableViewportScale",
-            "$value": "false"
-        },
-        {
-            "$name": "KeyboardDisplayRequiresUserAction",
-            "$value": "true"
-        },
-        {
-            "$name": "MediaPlaybackRequiresUserAction",
-            "$value": "false"
-        }
-    ],
-    "feature": {
-        "$name": "LocalStorage",
-        "param": {
-            "$name": "osx-package",
-            "$value": "CDVLocalStorage"
-        }
+    "$xmlns": "http://www.w3.org/ns/widgets",
+    "id": "io.nodekit.sample",
+    "version": "4.0.0",
+    "preference": {
+        "AllowInlineMediaPlayback": true,
+        "BackupWebStorage": "cloud",
+        "DisallowOverscroll": false,
+        "EnableViewportScale": false,
+        "KeyboardDisplayRequiresUserAction": true,
+        "MediaPlaybackRequiresUserAction": false
     }
 }

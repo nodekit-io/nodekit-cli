@@ -1,98 +1,41 @@
 {
-    "$id": "com.example.hello",
-    "$version": "0.0.1",
-    "$xmlns": "http://w3.org/ns/widgets",
+    "id": "com.example.hello",
+    "version": "0.0.1",
+    "$xmlns": "http://www.w3.org/ns/widgets",
     "$xmlns:ogn": "http://nodekit.io/ns/1.0",
-    "preference": [
-        {
-            "$name": "AllowInlineMediaPlayback",
-            "$value": "false"
-        },
-        {
-            "$name": "AutoHideSplashScreen",
-            "$value": "true"
-        },
-        {
-            "$name": "BackupWebStorage",
-            "$value": "cloud"
-        },
-        {
-            "$name": "DisallowOverscroll",
-            "$value": "false"
-        },
-        {
-            "$name": "EnableViewportScale",
-            "$value": "false"
-        },
-        {
-            "$name": "FadeSplashScreen",
-            "$value": "true"
-        },
-        {
-            "$name": "FadeSplashScreenDuration",
-            "$value": ".25"
-        },
-        {
-            "$name": "KeyboardDisplayRequiresUserAction",
-            "$value": "true"
-        },
-        {
-            "$name": "MediaPlaybackRequiresUserAction",
-            "$value": "false"
-        },
-        {
-            "$name": "ShowSplashScreenSpinner",
-            "$value": "true"
-        },
-        {
-            "$name": "SuppressesIncrementalRendering",
-            "$value": "false"
-        },
-        {
-            "$name": "TopActivityIndicator",
-            "$value": "gray"
-        },
-        {
-            "$name": "GapBetweenPages",
-            "$value": "0"
-        },
-        {
-            "$name": "PageLength",
-            "$value": "0"
-        },
-        {
-            "$name": "PaginationBreakingMode",
-            "$value": "page"
-        },
-        {
-            "$name": "PaginationMode",
-            "$value": "unpaginated"
-        },
-        {
-            "$name": "OSXLocalStoragePath",
-            "$value": "~/Library/Application Support/__PROJECT_NAME__"
-        },
-        {
-            "$name": "WindowSize",
-            "$value": "auto"
-        },
-        {
-            "$name": "HideMousePointer",
-            "$value": "1"
-        }
-    ],
     "name": "__PROJECT_NAME__",
     "copyright": "__ORGANIZATION_NAME__",
     "description": "A sample NodeKit application",
     "author": {
         "value": "NodeKit Team",
-        "$href": "http://nodekit.io",
-        "$email": "admin@nodekit.io"
+        "href": "http://nodekit.io",
+        "email": "admin@nodekit.io"
     },
     "content": {
-        "$src": "index.html"
+        "src": "index.html"
     },
     "access": {
-        "$origin": "*"
+        "origin": "*"
+    },
+    "preference": {
+        "AllowInlineMediaPlayback": false,
+        "AutoHideSplashScreen": true,
+        "BackupWebStorage": "cloud",
+        "DisallowOverscroll": false,
+        "EnableViewportScale": false,
+        "FadeSplashScreen": true,
+        "FadeSplashScreenDuration": 0.25,
+        "KeyboardDisplayRequiresUserAction": true,
+        "MediaPlaybackRequiresUserAction": false,
+        "ShowSplashScreenSpinner": true,
+        "SuppressesIncrementalRendering": false,
+        "TopActivityIndicator": "gray",
+        "GapBetweenPages": 0,
+        "PageLength": 0,
+        "PaginationBreakingMode": "page",
+        "PaginationMode": "unpaginated",
+        "OSXLocalStoragePath": "~/Library/Application Support/__PROJECT_NAME__",
+        "WindowSize": "auto",
+        "HideMousePointer": 1
     }
 }

@@ -1,0 +1,78 @@
+{
+    "access": [
+        "origin",
+        "subdomains"
+    ],
+    "plugin": [
+        "name",
+        "spec"
+    ],
+    "allow-navigation": [
+        "href"
+    ],
+    "allow-intent": [
+        "href"
+    ],
+    "engine": [
+        "name",
+        "spec"
+    ],
+    "platform": [
+        "name"
+    ],
+    "hook": [
+        "type",
+        "source"
+    ],
+    "widget": [
+        "id",
+        "version",
+        "height",
+        "width",
+        "viewmodes",
+        "android-versionCode",
+        "ios-CFBundleVersion",
+        "osx-CFBundleVersion",
+        "windows-packageVersion",
+        "packageName"
+    ],
+    "name": [
+        "dir",
+        "short"
+    ],
+    "description": [
+        "dir"
+    ],
+    "icon": [
+        "src",
+        "height",
+        "width"
+    ],
+    "author": [
+        "dir",
+        "href",
+        "email"
+    ],
+    "license": [
+        "dir",
+        "href"
+    ],
+    "content": [
+        "src",
+        "type",
+        "encoding"
+    ],
+    "feature": [
+        "name",
+        "required"
+    ],
+    "param": [
+        "name",
+        "value"
+    ],
+    "preference": [
+        "name",
+        "value",
+        "readonly"
+    ]
+}

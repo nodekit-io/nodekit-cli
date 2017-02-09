@@ -1,107 +1,45 @@
 {
-    "$xmlns": "http://w3.org/ns/widgets",
-    "$id": "io.nodekit.helloNodeKit",
-    "$version": "2.0.0",
-    "preference": [
-        {
-            "$name": "AllowInlineMediaPlayback",
-            "$value": "false"
-        },
-        {
-            "$name": "BackupWebStorage",
-            "$value": "cloud"
-        },
-        {
-            "$name": "DisallowOverscroll",
-            "$value": "false"
-        },
-        {
-            "$name": "EnableViewportScale",
-            "$value": "false"
-        },
-        {
-            "$name": "KeyboardDisplayRequiresUserAction",
-            "$value": "true"
-        },
-        {
-            "$name": "MediaPlaybackRequiresUserAction",
-            "$value": "false"
-        },
-        {
-            "$name": "SuppressesIncrementalRendering",
-            "$value": "false"
-        },
-        {
-            "$name": "SuppressesLongPressGesture",
-            "$value": "false"
-        },
-        {
-            "$name": "Suppresses3DTouchGesture",
-            "$value": "false"
-        },
-        {
-            "$name": "GapBetweenPages",
-            "$value": "0"
-        },
-        {
-            "$name": "PageLength",
-            "$value": "0"
-        },
-        {
-            "$name": "PaginationBreakingMode",
-            "$value": "page"
-        },
-        {
-            "$name": "PaginationMode",
-            "$value": "unpaginated"
-        }
-    ],
-    "feature": [
-        {
-            "$name": "LocalStorage",
+    "$xmlns": "http://www.w3.org/ns/widgets",
+    "id": "io.nodekit.sample",
+    "version": "2.0.0",
+    "preference": {
+        "AllowInlineMediaPlayback": false,
+        "BackupWebStorage": "cloud",
+        "DisallowOverscroll": false,
+        "EnableViewportScale": false,
+        "KeyboardDisplayRequiresUserAction": true,
+        "MediaPlaybackRequiresUserAction": false,
+        "SuppressesIncrementalRendering": false,
+        "SuppressesLongPressGesture": false,
+        "Suppresses3DTouchGesture": false,
+        "GapBetweenPages": 0,
+        "PageLength": 0,
+        "PaginationBreakingMode": "page",
+        "PaginationMode": "unpaginated"
+    },
+    "feature": {
+        "LocalStorage": {
             "param": {
-                "$name": "ios-package",
-                "$value": "CDVLocalStorage"
+                "ios-package": "CDVLocalStorage"
             }
         },
-        {
-            "$name": "HandleOpenUrl",
-            "param": [
-                {
-                    "$name": "ios-package",
-                    "$value": "CDVHandleOpenURL"
-                },
-                {
-                    "$name": "onload",
-                    "$value": "true"
-                }
-            ]
+        "HandleOpenUrl": {
+            "param": {
+                "ios-package": "CDVHandleOpenURL",
+                "onload": true
+            }
         },
-        {
-            "$name": "IntentAndNavigationFilter",
-            "param": [
-                {
-                    "$name": "ios-package",
-                    "$value": "CDVIntentAndNavigationFilter"
-                },
-                {
-                    "$name": "onload",
-                    "$value": "true"
-                }
-            ]
+        "IntentAndNavigationFilter": {
+            "param": {
+                "ios-package": "CDVIntentAndNavigationFilter",
+                "onload": true
+            }
         },
-        {
-            "$name": "GestureHandler",
-            "param": [
-                {
-                    "$name": "ios-package",
-                    "$value": "CDVGestureHandler"
-                },
-                {
-                    "$name": "onload",
-                    "$value": "true"
-                }
-            ]
+        "GestureHandler": {
+            "param": {
+                "ios-package": "CDVGestureHandler",
+                "onload": true
+            }
         }
-    ]
+    }
 }

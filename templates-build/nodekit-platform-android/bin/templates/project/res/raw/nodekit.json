@@ -1,67 +1,30 @@
 {
-    "$xmlns": "http://w3.org/ns/widgets",
-    "$id": "io.nodekit.helloNodeKit",
-    "$version": "2.0.0",
-    "name": "Hello NodeKit",
-    "description": "A sample NodeKit application that responds to the deviceready event.",
+    "$xmlns": "http://www.w3.org/ns/widgets",
+    "id": "io.cordova.helloCordova",
+    "version": "2.0.0",
+    "name": "NodeKitSample",
+    "description": "A sample NodeKit application",
     "author": {
         "value": "NodeKit Team",
-        "$href": "http://nodekit.io",
-        "$email": "dev@nodekit.io"
+        "href": "http://nodekit.io",
+        "email": "admin@nodekit.io"
     },
     "content": {
-        "$src": "index.html"
+        "src": "index.html"
     },
     "access": {
-        "$origin": "*"
+        "origin": "*"
     },
     "allow-intent": [
-        {
-            "$href": "http://*/*"
-        },
-        {
-            "$href": "https://*/*"
-        },
-        {
-            "$href": "tel:*"
-        },
-        {
-            "$href": "sms:*"
-        },
-        {
-            "$href": "mailto:*"
-        },
-        {
-            "$href": "geo:*"
-        },
-        {
-            "$href": "market:*"
-        }
+        "http://*/*",
+        "https://*/*",
+        "tel:*",
+        "sms:*",
+        "mailto:*",
+        "geo:*",
+        "market:*"
     ],
-    "preference": [
-        {
-            "$name": "loglevel",
-            "$value": "DEBUG"
-        },
-        {
-            "$name": "splashscreen",
-            "$value": "splash"
-        },
-        {
-            "$name": "backgroundColor",
-            "$value": "0xFFF"
-        },
-        {
-            "$name": "loadUrlTimeoutValue",
-            "$value": "20000"
-        },
-        {
-            "$name": "InAppBrowserStorageEnabled",
-            "$value": "true"
-        },
-        {
-            "$name": "disallowOverscroll",
-            "$value": "true"
-        }
-    ]
+    "preference": {
+        "loglevel": "DEBUG"
+    }
 }

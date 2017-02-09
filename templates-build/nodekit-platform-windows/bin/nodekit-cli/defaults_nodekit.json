@@ -1,8 +1,5 @@
 {
     "$xmlns": "http://www.w3.org/ns/widgets",
     "id": "io.nodekit.sample",
-    "version": "2.0.0",
-    "preference": {
-        "loglevel": "DEBUG"
-    }
+    "version": "2.0.0"
 }

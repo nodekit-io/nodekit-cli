@@ -1,9 +1,8 @@
 {
-    "$xmlns": "http://w3.org/ns/widgets",
-    "$id": "io.nodekit.helloNodeKit",
-    "$version": "2.0.0",
+    "$xmlns": "http://www.w3.org/ns/widgets",
+    "id": "io.nodekit.sample",
+    "version": "2.0.0",
     "preference": {
-        "$name": "loglevel",
-        "$value": "DEBUG"
+        "loglevel": "DEBUG"
     }
 }

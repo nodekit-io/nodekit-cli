@@ -41,7 +41,7 @@ function map(src, dest, cb) {
         '!node_modules/**/node_modules/**',
         '!node_modules/**/guides/**',
         '!node_modules/*-android/framework/src/org/apache/**',
-        '!node_modules/**/*-js-src/**',  '!node_modules/**/template/www/**', '!node_modules/*-ubuntu/www/**',
+        '!node_modules/**/*-js-src/**',  '!node_modules/**/template/www/**', 
         '!node_modules/**/CordovaLib/**',
         '!node_modules/*-android/bin/templates/project/**',
         '!node_modules/*-ios/bin/templates/project/**',
@@ -160,7 +160,6 @@ function map(src, dest, cb) {
             path.dirname = path.dirname.replace(/^bin\/templates\/$/ig, "bin/templates/project/");
             path.dirname = path.dirname.replace(/^bin\/templates\/images\/$/ig, "bin/templates/project/images/");
             path.dirname = path.dirname.replace(/^[qml|xml]/ig, function(match){ return "bin/templates/project/" + match});
-            path.dirname = path.dirname.replace(/^NodeKitUbuntu/ig, "bin/templates/framework");
             if ((path.extname == '.xml') && (path.basename == 'defaults' )) { 
                path.extname = '.json';
                path.basename = 'defaults_nodekit'
@@ -180,7 +179,7 @@ gulp.task('srccopy1', ['cli'], function () {
         .pipe(gulp.dest('./doc'));
 })
 
-gulp.task("srccopy2", ['cli-lib', 'cli-common', 'cli-fetch', 'cli-serve', 'cli-create', 'android', 'ios', 'macos', 'windows', 'ubuntu'], function () {
+gulp.task("srccopy2", ['cli-lib', 'cli-common', 'cli-fetch', 'cli-serve', 'cli-create', 'android', 'ios', 'macos', 'windows'], function () {
     gulp.src(["./templates-build/nodekit-platform*/**/*",
         "./templates-build/nodekit-cli*/**/*",
         "./templates-build/app/**/*"])
@@ -206,9 +205,8 @@ gulp.task("macos1", map.bind(null, "./node_modules/cordova-ios/*/**", "src/nodek
 gulp.task("macos2", ["macos1"], map.bind(null, "./node_modules/cordova-osx/bin/templates/scripts/**/*", "src/nodekit-platform-macos/bin")); /* NOTE SCRIPTS COPIED FROM OSX */
 gulp.task("macos", ["macos1", "macos2"])
 gulp.task("windows", map.bind(null, "./node_modules/cordova-windows/*/**", 'src/nodekit-platform-windows'));
-gulp.task("ubuntu", map.bind(null, "./node_modules/cordova-ubuntu/*/**", 'src/nodekit-platform-ubuntu'));
 
-gulp.task('refactor', ['cli', 'srccopy1', 'cli-lib', 'cli-common', 'cli-fetch', 'cli-serve', 'cli-create', 'android', 'ios', 'macos', 'windows', 'ubuntu', 'srccopy2']);
+gulp.task('refactor', ['cli', 'srccopy1', 'cli-lib', 'cli-common', 'cli-fetch', 'cli-serve', 'cli-create', 'android', 'ios', 'macos', 'windows', 'srccopy2']);
 
 function matchCase(text, pattern) {
     if (pattern == "Cordova" && text == "nodekit") return "NodeKit";

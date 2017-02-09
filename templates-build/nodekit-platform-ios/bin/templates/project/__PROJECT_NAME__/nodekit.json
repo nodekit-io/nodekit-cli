@@ -1,146 +1,68 @@
 {
     "$xmlns": "http://www.w3.org/ns/widgets",
-    "$id": "com.example.hello",
-    "$version": "2.0.0",
+    "id": "io.cordova.helloCordova",
+    "version": "2.0.0",
     "name": "NodeKitSample",
     "description": "A sample NodeKit application",
     "author": {
         "value": "NodeKit Team",
-        "$href": "http://nodekit.io",
-        "$email": "admin@nodekit.io"
+        "href": "http://nodekit.io",
+        "email": "admin@nodekit.io"
     },
     "content": {
-        "$src": "index.html"
+        "src": "index.html"
     },
     "access": {
-        "$origin": "*"
+        "origin": "*"
     },
     "allow-intent": [
-        {
-            "$href": "http://*/*"
-        },
-        {
-            "$href": "https://*/*"
-        },
-        {
-            "$href": "tel:*"
-        },
-        {
-            "$href": "sms:*"
-        },
-        {
-            "$href": "mailto:*"
-        },
-        {
-            "$href": "geo:*"
-        },
-        {
-            "$href": "itms:*"
-        },
-        {
-            "$href": "itms-apps:*"
-        }
+        "http://*/*",
+        "https://*/*",
+        "tel:*",
+        "sms:*",
+        "mailto:*",
+        "geo:*",
+        "itms:*",
+        "itms-apps:*"
     ],
-    "preference": [
-        {
-            "$name": "AllowInlineMediaPlayback",
-            "$value": "false"
-        },
-        {
-            "$name": "BackupWebStorage",
-            "$value": "cloud"
-        },
-        {
-            "$name": "DisallowOverscroll",
-            "$value": "false"
-        },
-        {
-            "$name": "EnableViewportScale",
-            "$value": "false"
-        },
-        {
-            "$name": "KeyboardDisplayRequiresUserAction",
-            "$value": "true"
-        },
-        {
-            "$name": "MediaPlaybackRequiresUserAction",
-            "$value": "false"
-        },
-        {
-            "$name": "SuppressesIncrementalRendering",
-            "$value": "false"
-        },
-        {
-            "$name": "SuppressesLongPressGesture",
-            "$value": "false"
-        },
-        {
-            "$name": "Suppresses3DTouchGesture",
-            "$value": "false"
-        },
-        {
-            "$name": "GapBetweenPages",
-            "$value": "0"
-        },
-        {
-            "$name": "PageLength",
-            "$value": "0"
-        },
-        {
-            "$name": "PaginationBreakingMode",
-            "$value": "page"
-        },
-        {
-            "$name": "PaginationMode",
-            "$value": "unpaginated"
-        }
-    ],
-    "feature": [
-        {
-            "$name": "LocalStorage",
+    "preference": {
+        "AllowInlineMediaPlayback": false,
+        "BackupWebStorage": "cloud",
+        "DisallowOverscroll": false,
+        "EnableViewportScale": false,
+        "KeyboardDisplayRequiresUserAction": true,
+        "MediaPlaybackRequiresUserAction": false,
+        "SuppressesIncrementalRendering": false,
+        "SuppressesLongPressGesture": false,
+        "Suppresses3DTouchGesture": false,
+        "GapBetweenPages": 0,
+        "PageLength": 0,
+        "PaginationBreakingMode": "page",
+        "PaginationMode": "unpaginated"
+    },
+    "feature": {
+        "LocalStorage": {
             "param": {
-                "$name": "ios-package",
-                "$value": "CDVLocalStorage"
+                "ios-package": "CDVLocalStorage"
             }
         },
-        {
-            "$name": "HandleOpenUrl",
-            "param": [
-                {
-                    "$name": "ios-package",
-                    "$value": "CDVHandleOpenURL"
-                },
-                {
-                    "$name": "onload",
-                    "$value": "true"
-                }
-            ]
+        "HandleOpenUrl": {
+            "param": {
+                "ios-package": "CDVHandleOpenURL",
+                "onload": true
+            }
         },
-        {
-            "$name": "IntentAndNavigationFilter",
-            "param": [
-                {
-                    "$name": "ios-package",
-                    "$value": "CDVIntentAndNavigationFilter"
-                },
-                {
-                    "$name": "onload",
-                    "$value": "true"
-                }
-            ]
+        "IntentAndNavigationFilter": {
+            "param": {
+                "ios-package": "CDVIntentAndNavigationFilter",
+                "onload": true
+            }
         },
-        {
-            "$name": "GestureHandler",
-            "param": [
-                {
-                    "$name": "ios-package",
-                    "$value": "CDVGestureHandler"
-                },
-                {
-                    "$name": "onload",
-                    "$value": "true"
-                }
-            ]
+        "GestureHandler": {
+            "param": {
+                "ios-package": "CDVGestureHandler",
+                "onload": true
+            }
         }
-    ]
+    }
 }

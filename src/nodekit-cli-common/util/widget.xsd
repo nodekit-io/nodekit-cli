@@ -1,0 +1,522 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<xs:schemagroup xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.w3.org/ns/widgets" xmlns:widgets="http://www.w3.org/ns/widgets">
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.w3.org/ns/widgets" xmlns:widgets="http://www.w3.org/ns/widgets">
+  <xs:import schemaLocation="common.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:element name="access">
+        <xs:annotation>
+        	<xs:documentation>Defines the set of external domains the app is allowed to communicate with. The default value shown above allows it to access any server. </xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+      <xs:attribute name="origin" use="required">
+                <xs:annotation>
+                	<xs:documentation>Defines the set of external domains the app is allowed to communicate with.</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+          <xs:union memberTypes="xs:anyURI">
+            <xs:simpleType>
+              <xs:restriction base="xs:string">
+                <xs:enumeration value="*"/>
+              </xs:restriction>
+            </xs:simpleType>
+          </xs:union>
+        </xs:simpleType>
+      </xs:attribute>
+      <xs:attribute name="subdomains" type="xs:boolean"/>
+    </xs:complexType>
+  </xs:element>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" xmlns:widgets="http://www.w3.org/ns/widgets">
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  <xs:import namespace="http://www.w3.org/ns/widgets" schemaLocation="widget.xsd"/>
+
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified"
+targetNamespace="http://www.w3.org/ns/widgets" xmlns:widgets="http://www.w3.org/ns/widgets">
+  <xs:import schemaLocation="common.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+  
+
+
+  <xs:element name="plugin">
+        <xs:annotation>
+        	<xs:documentation>Specifies details about what plugin to restore during a prepare.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+  		<xs:attribute name="name" type="xs:string" use="required">
+  			<xs:annotation>
+  				<xs:documentation>Name of the plugin to be restored</xs:documentation>
+  			</xs:annotation></xs:attribute>
+  		<xs:attribute name="spec" type="xs:string" use="required">
+  			<xs:annotation>
+  				<xs:documentation>Details about the plugin to be restored. This could be a major.minor.patch version number, a directory containing the plugin or a url pointing to a git repository. This information will be used to retrieve the plugin code to restore from NPM, a local directory or a git repository</xs:documentation>
+  			</xs:annotation></xs:attribute>
+  	</xs:complexType>
+  </xs:element>
+
+
+  <xs:element name="allow-navigation">
+        <xs:annotation>
+        	<xs:documentation>Controls which URLs the WebView itself can be navigated to. Applies to top-level navigations only</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+  		<xs:attribute name="href" type="xs:string" use="required">
+  			<xs:annotation>
+  				<xs:documentation>Defines the set of external domains the WebView is allowed to navigate to.</xs:documentation>
+  			</xs:annotation></xs:attribute>
+  	</xs:complexType>
+  </xs:element>
+
+  <xs:element name="allow-intent">
+        <xs:annotation>
+        	<xs:documentation>Controls which URLs the app is allowed to ask the system to open. By default, no external URLs are allowed.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+  		<xs:attribute name="href" type="xs:string" use="required">
+  			<xs:annotation>
+  				<xs:documentation>Defines which URLs the app is allowed to ask the system to open.</xs:documentation>
+  			</xs:annotation></xs:attribute>
+  	</xs:complexType>
+  </xs:element>
+
+  <xs:element name="engine">
+        <xs:annotation>
+        	<xs:documentation>Specifies details about what platform to restore during a prepare.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+  		<xs:attribute name="name" type="xs:string" use="required">
+  			<xs:annotation>
+  				<xs:documentation>Name of the platform to be restored</xs:documentation>
+  			</xs:annotation></xs:attribute>
+  		<xs:attribute name="spec" type="xs:string" use="required">
+  			<xs:annotation>
+  				<xs:documentation>Details about the platform to be restored. This could be a major.minor.patch version number, a directory containing the platform or a url pointing to a git repository. This information will be used to retrieve the platform code to restore from NPM, a local directory or a git repository</xs:documentation>
+  			</xs:annotation></xs:attribute>
+  	</xs:complexType>
+  </xs:element>
+
+  <xs:element name="platform">
+        <xs:annotation>
+        	<xs:documentation>It is sometimes necessary to specify preferences or other elements specific to a particular platform. Use the element to specify configuration that should only appear in a single platform-specific config.xml file.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+  		<xs:choice maxOccurs="unbounded" minOccurs="0">
+  			<xs:element ref="widgets:allow-intent"></xs:element>
+  			<xs:element ref="widgets:allow-navigation"></xs:element>
+  			<xs:element ref="widgets:plugin"></xs:element>
+  			<xs:element ref="widgets:preference"></xs:element>
+  			<xs:element ref="widgets:hook"></xs:element>
+  		</xs:choice>
+  		<xs:attribute name="name" type="xs:string" use="required">
+  			<xs:annotation>
+  				<xs:documentation>The platform whose preferences are being defined</xs:documentation>
+  			</xs:annotation></xs:attribute>
+  	</xs:complexType>
+  </xs:element>
+
+  <xs:element name="hook">
+        <xs:annotation>
+        	<xs:documentation>Represents your custom script which will be called by Cordova when certain action occurs (for example, after plugin is added or platform prepare logic is invoked). This is useful when you need to extend default Cordova functionality</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+  		<xs:attribute name="type" use="required">
+  			<xs:annotation>
+  				<xs:documentation>
+  					Specifies the action during which the custom
+  					script is to be called.
+  				</xs:documentation>
+  			</xs:annotation>
+  			<xs:simpleType>
+  				<xs:restriction base="xs:string">
+  					<xs:enumeration value="before_platform_add"></xs:enumeration>
+  					<xs:enumeration value="after_platform_add"></xs:enumeration>
+  					<xs:enumeration value="before_platform_rm"></xs:enumeration>
+  					<xs:enumeration value="after_platform_rm"></xs:enumeration>
+  					<xs:enumeration value="before_platform_ls"></xs:enumeration>
+  					<xs:enumeration value="after_platform_ls"></xs:enumeration>
+  					<xs:enumeration value="before_prepare"></xs:enumeration>
+  					<xs:enumeration value="after_prepare"></xs:enumeration>
+  					<xs:enumeration value="before_compile"></xs:enumeration>
+  					<xs:enumeration value="after_compile"></xs:enumeration>
+  					<xs:enumeration value="before_build"></xs:enumeration>
+  					<xs:enumeration value="after_build"></xs:enumeration>
+  					<xs:enumeration value="before_emulate"></xs:enumeration>
+  					<xs:enumeration value="after_emulate"></xs:enumeration>
+  					<xs:enumeration value="before_run"></xs:enumeration>
+  					<xs:enumeration value="after_run"></xs:enumeration>
+  					<xs:enumeration value="before_serve"></xs:enumeration>
+  					<xs:enumeration value="after_serve"></xs:enumeration>
+  					<xs:enumeration value="before_clean"></xs:enumeration>
+  					<xs:enumeration value="after_clean"></xs:enumeration>
+  					<xs:enumeration value="pre_package"></xs:enumeration>
+  					<xs:enumeration value="before_plugin_add"></xs:enumeration>
+  					<xs:enumeration value="after_plugin_add"></xs:enumeration>
+  					<xs:enumeration value="before_plugin_rm"></xs:enumeration>
+  					<xs:enumeration value="after_plugin_rm"></xs:enumeration>
+  					<xs:enumeration value="before_plugin_ls"></xs:enumeration>
+  					<xs:enumeration value="after_plugin_ls"></xs:enumeration>
+  					<xs:enumeration value="before_plugin_search"></xs:enumeration>
+  					<xs:enumeration value="after_plugin_search"></xs:enumeration>
+  					<xs:enumeration value="before_plugin_install"></xs:enumeration>
+  					<xs:enumeration value="after_plugin_install"></xs:enumeration>
+  					<xs:enumeration value="before_plugin_uninstall"></xs:enumeration>
+  				</xs:restriction>
+  			</xs:simpleType>
+  		</xs:attribute>
+  		<xs:attribute name="source" type="xs:string" use="required">
+  			<xs:annotation>
+  				<xs:documentation>Specifies the location of the script to be called when a specific action occurs</xs:documentation>
+  			</xs:annotation></xs:attribute>
+  	</xs:complexType>
+  </xs:element>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema"
+	elementFormDefault="qualified" targetNamespace="http://www.w3.org/ns/widgets"
+	xmlns:widgets="http://www.w3.org/ns/widgets">
+	<xs:import schemaLocation="common.xsd" />
+	<xs:import namespace="http://www.w3.org/XML/1998/namespace"
+		schemaLocation="xml.xsd" />
+	<xs:element name="widget">
+        <xs:annotation>
+        	<xs:documentation>Root element of the config.xml document.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+        			<xs:attribute ref="xml:lang" />
+        			<xs:attribute name="id" type="xs:anyURI">
+        				<xs:annotation>
+        					<xs:documentation>
+        						Specifies the applications
+        						reverse-domain identifier
+        					</xs:documentation>
+        				</xs:annotation>
+        			</xs:attribute>
+        			<xs:attribute name="version">
+        				<xs:annotation>
+        					<xs:documentation>
+        						Full version number expressed in
+        						major/minor/patch notation
+        					</xs:documentation>
+        				</xs:annotation>
+        			</xs:attribute>
+        			<xs:attribute name="height"
+        				type="xs:positiveInteger" />
+        			<xs:attribute name="width"
+        				type="xs:positiveInteger" />
+        			<xs:attribute name="viewmodes">
+        				<xs:simpleType>
+        					<xs:list
+        						itemType="widgets:group.listName">
+        					</xs:list>
+        				</xs:simpleType>
+        			</xs:attribute>
+        			<xs:attribute name="android-versionCode"
+        				type="xs:string" use="optional">
+        				<xs:annotation>
+        					<xs:documentation>
+        						Alternative version for Android. Sets
+        						the version code for the application
+        					</xs:documentation>
+        				</xs:annotation>
+        			</xs:attribute>
+        			<xs:attribute name="ios-CFBundleVersion"
+        				type="xs:string" use="optional">
+        				<xs:annotation>
+        					<xs:documentation>
+        						Alternative version for iOS
+        					</xs:documentation>
+        				</xs:annotation>
+        			</xs:attribute>
+        			<xs:attribute name="osx-CFBundleVersion"
+        				type="xs:string" use="optional">
+        				<xs:annotation>
+        					<xs:documentation>
+        						Alternative version for OS X
+        					</xs:documentation>
+        				</xs:annotation>
+        			</xs:attribute>
+        			<xs:attribute name="windows-packageVersion"
+        				type="xs:string" use="optional">
+        				<xs:annotation>
+        					<xs:documentation>
+        						Alternative version for Windows
+        					</xs:documentation>
+        				</xs:annotation>
+        			</xs:attribute>
+        			<xs:attribute name="packageName"
+        				type="xs:string" use="optional">
+                        <xs:annotation>
+                        	<xs:documentation>Package name for Windows defaults to Cordova.Example, if not set</xs:documentation>
+                        </xs:annotation>
+        			</xs:attribute>
+        </xs:complexType>
+	</xs:element>
+	<xs:simpleType name="group.listName">
+		<xs:restriction base="xs:string">
+			<xs:enumeration value="floating" />
+			<xs:enumeration value="windowed" />
+			<xs:enumeration value="maximized" />
+			<xs:enumeration value="fullscreen" />
+			<xs:enumeration value="minimized" />
+		</xs:restriction>
+	</xs:simpleType>
+	<xs:complexType name="group.widgetContent">
+		<xs:choice minOccurs="0" maxOccurs="unbounded">
+			<xs:choice>
+				<xs:element ref="widgets:name" />
+				<xs:element ref="widgets:description" />
+				<xs:element ref="widgets:icon" />
+				<xs:element ref="widgets:author" />
+				<xs:element ref="widgets:license" />
+				<xs:element ref="widgets:content" />
+				<xs:element ref="widgets:feature" />
+				<xs:element ref="widgets:preference" />
+			</xs:choice>
+			<xs:element ref="widgets:access" />
+			<xs:element ref="widgets:plugin" />
+			<xs:element ref="widgets:allow-navigation" />
+			<xs:element ref="widgets:allow-intent" />
+			<xs:element ref="widgets:hook" />
+			<xs:element ref="widgets:engine" />
+			<xs:element ref="widgets:platform" />
+		</xs:choice>
+	</xs:complexType>
+	<xs:element name="name">
+        <xs:annotation>
+        	<xs:documentation>Specifies the app's formal name, as it appears on the device's home screen and within app-store interfaces</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+			<xs:attribute ref="xml:lang" />
+			<xs:attribute name="dir">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="ltr" />
+						<xs:enumeration value="rtl" />
+						<xs:enumeration value="rlo" />
+						<xs:enumeration value="lro" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="short" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="description">
+        <xs:annotation>
+        	<xs:documentation>Specifies metadata that may appear within app-store listings.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+			<xs:attribute ref="xml:lang" />
+			<xs:attribute name="dir">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="ltr" />
+						<xs:enumeration value="rtl" />
+						<xs:enumeration value="rlo" />
+						<xs:enumeration value="lro" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="icon">
+		<xs:complexType>
+			
+			<xs:attribute name="src" use="required" type="xs:anyURI" />
+			<xs:attribute name="height" type="xs:positiveInteger" />
+			<xs:attribute name="width" type="xs:positiveInteger" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="author">
+        <xs:annotation>
+        	<xs:documentation>Specifies contact information that may appear within app-store listings.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType mixed="true">
+			<xs:attribute ref="xml:lang" />
+			<xs:attribute name="dir">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="ltr" />
+						<xs:enumeration value="rtl" />
+						<xs:enumeration value="rlo" />
+						<xs:enumeration value="lro" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="href" type="xs:anyURI" >
+				<xs:annotation>
+					<xs:documentation>Website of the author</xs:documentation>
+				</xs:annotation></xs:attribute>
+			<xs:attribute name="email">
+                <xs:annotation>
+                	<xs:documentation>Email of the author</xs:documentation>
+                </xs:annotation>
+                <xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:pattern value=".+@.+" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="license">
+		<xs:complexType mixed="true">
+			<xs:attribute ref="xml:lang" />
+			<xs:attribute name="dir">
+				<xs:simpleType>
+					<xs:restriction base="xs:token">
+						<xs:enumeration value="ltr" />
+						<xs:enumeration value="rtl" />
+						<xs:enumeration value="rlo" />
+						<xs:enumeration value="lro" />
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="href" type="xs:anyURI" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="content">
+        <xs:annotation>
+        	<xs:documentation>Defines the app's starting page in the top-level web assets directory. The default value is index.html, which customarily appears in a project's top-level www directory.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+			
+			<xs:attribute name="src" use="required" type="xs:anyURI" >
+				<xs:annotation>
+					<xs:documentation>Defines the app's starting page in the top-level web assets directory. The default value is index.html.</xs:documentation>
+				</xs:annotation></xs:attribute>
+			<xs:attribute name="type" />
+			<xs:attribute name="encoding" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="feature">
+		<xs:complexType>
+			<xs:sequence>
+				<xs:element minOccurs="0" maxOccurs="unbounded" ref="widgets:param" />
+			</xs:sequence>
+			<xs:attribute name="name" use="required" type="xs:anyURI" />
+			<xs:attribute name="required" type="xs:boolean" />
+		    </xs:complexType>
+	</xs:element>
+	<xs:element name="param">
+		<xs:complexType>
+			<xs:attribute name="name" use="required" />
+			<xs:attribute name="value" use="required" />
+		</xs:complexType>
+	</xs:element>
+	<xs:element name="preference">
+        <xs:annotation>
+        	<xs:documentation>Sets various options as pairs of name/value attributes. Each preference's name is case-insensitive. Many preferences are unique to specific platforms.</xs:documentation>
+        </xs:annotation>
+        <xs:complexType>
+			<xs:attribute ref="xml:lang" />
+			<xs:attribute name="name" use="required">
+				<xs:simpleType>
+					<xs:restriction base="xs:string">
+						<xs:enumeration
+							value="AllowInlineMediaPlayback">
+						</xs:enumeration>
+						<xs:enumeration value="AndroidLaunchMode"></xs:enumeration>
+						<xs:enumeration value="android-maxSdkVersion"></xs:enumeration>
+						<xs:enumeration
+							value="android-targetSdkVersion">
+						</xs:enumeration>
+						<xs:enumeration value="AppendUserAgent"></xs:enumeration>
+						<xs:enumeration value="BackgroundColor"></xs:enumeration>
+						<xs:enumeration value="BackupWebStorage"></xs:enumeration>
+						<xs:enumeration value="ChildBrowser"></xs:enumeration>
+						<xs:enumeration value="CordovaWebViewEngine"></xs:enumeration>
+						<xs:enumeration value="DefaultVolumeStream"></xs:enumeration>
+						<xs:enumeration value="DisallowOverscroll"></xs:enumeration>
+						<xs:enumeration value="EnableViewportScale"></xs:enumeration>
+						<xs:enumeration value="EnableWebGL"></xs:enumeration>
+						<xs:enumeration value="ErrorUrl"></xs:enumeration>
+						<xs:enumeration value="FullScreen"></xs:enumeration>
+						<xs:enumeration value="GapBetweenPages"></xs:enumeration>
+						<xs:enumeration
+							value="HideKeyboardFormAccessoryBar">
+						</xs:enumeration>
+						<xs:enumeration value="HideMousePointer"></xs:enumeration>
+						<xs:enumeration
+							value="InAppBrowserStorageEnabled">
+						</xs:enumeration>
+						<xs:enumeration value="KeepRunning"></xs:enumeration>
+						<xs:enumeration
+							value="KeyboardDisplayRequiresUserAction">
+						</xs:enumeration>
+						<xs:enumeration value="LoadUrlTimeoutValue"></xs:enumeration>
+						<xs:enumeration value="LoadingDialog"></xs:enumeration>
+						<xs:enumeration value="LogLevel"></xs:enumeration>
+						<xs:enumeration
+							value="MediaPlaybackAllowsAirPlay">
+						</xs:enumeration>
+						<xs:enumeration
+							value="MediaPlaybackRequiresUserAction">
+						</xs:enumeration>
+						<xs:enumeration value="Min/Max Version"></xs:enumeration>
+						<xs:enumeration value="Orientation"></xs:enumeration>
+						<xs:enumeration value="OSXLocalStoragePath"></xs:enumeration>
+						<xs:enumeration value="OverrideUserAgent"></xs:enumeration>
+						<xs:enumeration value="PageLength"></xs:enumeration>
+						<xs:enumeration
+							value="PaginationBreakingMode">
+						</xs:enumeration>
+						<xs:enumeration value="PaginationMode"></xs:enumeration>
+						<xs:enumeration value="PopupBlocker"></xs:enumeration>
+						<xs:enumeration value="SetFullscreen"></xs:enumeration>
+						<xs:enumeration value="ShowTitle"></xs:enumeration>
+						<xs:enumeration
+							value="Suppresses3DTouchGesture">
+						</xs:enumeration>
+						<xs:enumeration
+							value="SuppressesIncrementalRendering">
+						</xs:enumeration>
+						<xs:enumeration
+							value="SuppressesLongPressGesture">
+						</xs:enumeration>
+						<xs:enumeration value="TopActivityIndicator"></xs:enumeration>
+						<xs:enumeration
+							value="UIWebViewDecelerationSpeed">
+						</xs:enumeration>
+						<xs:enumeration value="WebSecurity"></xs:enumeration>
+						<xs:enumeration value="WindowSize"></xs:enumeration>
+						<xs:enumeration
+							value="WindowsDefaultUriPrefix">
+						</xs:enumeration>
+						<xs:enumeration
+							value="WindowsStoreDisplayName">
+						</xs:enumeration>
+						<xs:enumeration
+							value="WindowsStoreIdentityName">
+						</xs:enumeration>
+						<xs:enumeration
+							value="WindowsStorePublisherName">
+						</xs:enumeration>
+						<xs:enumeration value="WindowsToastCapable"></xs:enumeration>
+						<xs:enumeration value="deployment-target"></xs:enumeration>
+						<xs:enumeration value="target-device"></xs:enumeration>
+						<xs:enumeration
+							value="windows-phone-target-version">
+						</xs:enumeration>
+						<xs:enumeration
+							value="windows-target-version">
+						</xs:enumeration>
+					</xs:restriction>
+				</xs:simpleType>
+			</xs:attribute>
+			<xs:attribute name="value" />
+			<xs:attribute name="readonly" type="xs:boolean" />
+		</xs:complexType>
+	</xs:element>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.w3.org/ns/widgets" xmlns:widgets="http://www.w3.org/ns/widgets">
+  <xs:include schemaLocation="packaging-configuration.xsd"/>
+  <xs:include schemaLocation="access.xsd"/>
+  <xs:include schemaLocation="cordova.xsd"/>
+  <xs:import schemaLocation="common.xsd"/>
+  <xs:import namespace="http://www.w3.org/XML/1998/namespace" schemaLocation="xml.xsd"/>
+</xs:schema>
+<xs:schema xmlns:xs="http://www.w3.org/2001/XMLSchema" elementFormDefault="qualified" targetNamespace="http://www.w3.org/XML/1998/namespace" xmlns:widgets="http://www.w3.org/ns/widgets">
+  <xs:import schemaLocation="common.xsd"/>
+  <xs:import namespace="http://www.w3.org/ns/widgets" schemaLocation="widget.xsd"/>
+  <xs:attribute name="lang" type="xs:language"/>
+</xs:schema>
+</xs:schemagroup>
