@@ -1,6 +1,6 @@
 {
   "name": "nodekit-cli",
-  "version": "0.8.55",
+  "version": "0.8.56",
   "description": "A command-line tool for creating {NK} NodeKit applications",
   "main": "index.js",
   "scripts": {
