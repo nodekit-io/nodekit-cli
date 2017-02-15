@@ -19,9 +19,11 @@
 
 package io.nodekit.nkhosting;
 
-import android.app.Activity;
+import io.nodekit.nkelectro.NK_ElectroHost_Activity;
 
-public class NodeKitActivity extends Activity {
-
-   
+public class NodeKitActivity extends NK_ElectroHost_Activity {
+  
+  public NodeKitActivity() {
+    super();   
+    }
 }

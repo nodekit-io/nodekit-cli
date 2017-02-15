@@ -17,72 +17,14 @@
 */
 
 package io.nodekit.myapp;
-
-import android.app.Activity;
-import android.os.Bundle;
-import android.util.Log;
-
-import java.util.HashMap;
-
 import io.nodekit.nkhosting.NodeKitActivity;
-import io.nodekit.nkscripting.NKScriptContext;
-import io.nodekit.nkscripting.NKApplication;
-import io.nodekit.nkscripting.NKScriptContextFactory;
-import io.nodekit.nkscripting.NKScriptSource;
-import io.nodekit.nkscripting.util.NKLogging;
 
-import io.nodekit.nkelectro.NKElectro;
-import io.nodekit.nkscripting.util.NKStorage;
-import io.nodekit.nkscripting.util.NKEventEmitter;
+public class MainActivity extends NodeKitActivity {
 
-import android.widget.Button;
+    public MainActivity() {
 
-public class MainActivity extends NodeKitActivity implements NKScriptContext.NKScriptContextDelegate {
-
-    @Override
-    protected void onCreate(Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-        setContentView(R.layout.web_container);
-        NKApplication.setAppContext(this);
-               
-        try {
-            NKScriptContextFactory.createContext(null, this);
-        }
-        catch (Exception e) {
-             NKLogging.log(e);
-        }
-    }
-
-    public void NKScriptEngineDidLoad(NKScriptContext context) {
-        NKLogging.log("ScriptEngine Loaded");
-        this.context = context;
-
-        HashMap<String, Object> optionsDefault = new HashMap<String, Object>();
-        try {
-            NKElectro.addToContext(context, optionsDefault);
-        } catch (Exception e) {
-            NKLogging.log(e);
-        }
-
-               
-
-    }
-
-    private NKScriptContext context;
-
-    public void NKScriptEngineReady(NKScriptContext context) {
-        NKLogging.log("ScriptEngine Ready");
-
-         String script = "process.bootstrap('app/js/index.js');";
-
-                try {
-                    context.evaluateJavaScript(script, null);
-                } catch (Exception e) {
-                    NKLogging.log(e);
-                }
-                
-        NKEventEmitter.global.emit("NK.AppReady", "");
-            
+    super();
+        this.options.put("preloadURL", "app://localhost/index.html");
     }
 
 }
