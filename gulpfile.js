@@ -69,10 +69,13 @@ function map(src, dest, cb) {
         .pipe(replace(/require\('nodekit-js/ig, "require('cordova-js"))
         .pipe(replace(/cordova-js-src/ig, "nodekit-js-src"))
         .pipe(replace(/ios android wp7 wp8 blackberry www/g, "ios macos android windows nodejs"))
-        .pipe(replace(/updateWww\(nodekitProject, this\.locations\)/g, "/* NODEKIT */ true"))
         .pipe(replace(/android     blackberry  ios         wp8         www/ig, "android     macos       ios         windows     nodejs"))
         .pipe(replace(/http:\/\/www\./g, "http://"))
         .pipe(replace(/Apache NodeKit /ig, "NodeKit "))
+        .pipe(replace(/path\.relative\(nodekitProject\.root, destinations\.platformWww\)/g, "/* , NodeKit removed platform_app */"))
+        .pipe(replace(/shell\.cp\('-rf', path\.join\(destinations\.platformWww, '\*'\), destinations\.www\);/g, "// NodeKit removed platform_app"))
+        .pipe(replace(/shell\.cp\('-rf', path\.join\(nodekitProject\.locations\.www, '\*'\), destinations\.www\);/g,"shell.cp('-rf', path.join(nodekitProject.locations.app, 'dist', '*'), destinations.app);"))       
+        .pipe(replace(/path\.relative\(nodekitProject\.root, nodekitProject\.locations\.www\)/g, "path.relative(nodekitProject.root, path.join(nodekitProject.locations.app, 'dist'))"))
         .pipe(replace(/nodekit\.apache\.org/ig, "nodekit.io"))
         .pipe(replace(/org\.apache\.nodekit/ig, "io.nodekit"))
         .pipe(replace(/org_apache_nodekit/ig, "io_nodekit"))
@@ -238,3 +241,5 @@ function indexify(path) {
 
 
 
+//     .pipe(replace(/updateWww\(nodekitProject, this\.locations\)/g, "/* NODEKIT */ true"))
+   

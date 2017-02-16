@@ -451,7 +451,7 @@ module.exports.prepare = function (nodekitProject, options) {
     AppxManifest.purgeCache();
 
     // Update own app dir with project's app assets and plugins' assets and js-files
-    return Q.when(/* NODEKIT */ true)
+    return Q.when(updateApp(nodekitProject, this.locations))
     .then(function () {
         // update project according to nodekit.json changes.
         return updateProjectAccordingTo(self._config, self.locations);
@@ -591,8 +591,8 @@ function logFileOp(message) {
  */
 function updateApp(nodekitProject, destinations) {
     var sourceDirs = [
-        path.relative(nodekitProject.root, nodekitProject.locations.app),
-        path.relative(nodekitProject.root, destinations.platformApp)
+        path.relative(nodekitProject.root, path.join(nodekitProject.locations.app, 'dist')),
+        /* , NodeKit removed platform_app */
     ];
 
     // If project contains 'merges' for our platform, use them as another overrides

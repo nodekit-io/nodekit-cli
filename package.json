@@ -41,7 +41,7 @@
     "ios-sim": "^5.0.8",
     "is-url": "^1.2.2",
     "minimatch": "^3.0.3",
-    "nodekit-sample": "^0.8.12",
+    "nodekit-sample": "^0.8.15",
     "nopt": "3.0.6",
     "npm": "^3.10.x",
     "opener": "1.4.2",

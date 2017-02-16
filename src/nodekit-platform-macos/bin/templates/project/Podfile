@@ -1,7 +1,7 @@
 use_frameworks!
 
 target '__PROJECT_NAME__' do
-    pod 'NodeKit', '>= 0.8.9'
+    pod 'NodeKit', '>= 0.8.12'
 end
 
 post_install do |installer|

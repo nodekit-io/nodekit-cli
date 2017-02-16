@@ -7,15 +7,15 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		E4B6E2951E41355400048723 /* app.nkar in Resources */ = {isa = PBXBuildFile; fileRef = E4B6E2941E41355400048723 /* app.nkar */; };
+		E40148C71E551692000D426F /* app in Resources */ = {isa = PBXBuildFile; fileRef = E40148C61E551692000D426F /* app */; };
 		E4B6E29A1E42206400048723 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = E4B6E2971E42206400048723 /* Assets.xcassets */; };
 		E4B6E29C1E42206400048723 /* main.swift in Sources */ = {isa = PBXBuildFile; fileRef = E4B6E2991E42206400048723 /* main.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		E453FAB81E411D7B00E590D5 /* __PROJECT_NAME__.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = "__PROJECT_NAME__.app"; sourceTree = BUILT_PRODUCTS_DIR; };
+		E40148C61E551692000D426F /* app */ = {isa = PBXFileReference; lastKnownFileType = folder; path = app; sourceTree = "<group>"; };
+		E453FAB81E411D7B00E590D5 /* __PROJECT_NAME__.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = __PROJECT_NAME__.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		E4B6E28C1E4133B600048723 /* Podfile */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text; path = Podfile; sourceTree = "<group>"; };
-		E4B6E2941E41355400048723 /* app.nkar */ = {isa = PBXFileReference; lastKnownFileType = file; name = app.nkar; path = ../../app/app.nkar; sourceTree = "<group>"; };
 		E4B6E2971E42206400048723 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		E4B6E2981E42206400048723 /* __PROJECT_NAME__-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "__PROJECT_NAME__-Info.plist"; sourceTree = "<group>"; };
 		E4B6E2991E42206400048723 /* main.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = main.swift; sourceTree = "<group>"; };
@@ -35,8 +35,8 @@
 		E453FAAF1E411D7B00E590D5 = {
 			isa = PBXGroup;
 			children = (
+				E40148C61E551692000D426F /* app */,
 				E4B6E2961E42206400048723 /* __PROJECT_NAME__ */,
-				E4B6E2941E41355400048723 /* app.nkar */,
 				E4B6E28C1E4133B600048723 /* Podfile */,
 				E453FAB91E411D7B00E590D5 /* Products */,
 			);
@@ -57,7 +57,7 @@
 				E4B6E2981E42206400048723 /* __PROJECT_NAME__-Info.plist */,
 				E4B6E2991E42206400048723 /* main.swift */,
 			);
-			path = "__PROJECT_NAME__";
+			path = __PROJECT_NAME__;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -75,8 +75,8 @@
 			);
 			dependencies = (
 			);
-			name = "__PROJECT_NAME__";
-			productName = "__PROJECT_NAME__";
+			name = __PROJECT_NAME__;
+			productName = __PROJECT_NAME__;
 			productReference = E453FAB81E411D7B00E590D5 /* __PROJECT_NAME__.app */;
 			productType = "com.apple.product-type.application";
 		};
@@ -97,7 +97,7 @@
 					};
 				};
 			};
-			buildConfigurationList = E453FAB31E411D7B00E590D5 /* Build configuration list for PBXProject "__PROJECT_NAME__" */;
+			buildConfigurationList = E453FAB31E411D7B00E590D5 /* Build configuration list for PBXProject "__TEMP__" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -120,8 +120,8 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				E40148C71E551692000D426F /* app in Resources */,
 				E4B6E29A1E42206400048723 /* Assets.xcassets in Resources */,
-				E4B6E2951E41355400048723 /* app.nkar in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -261,7 +261,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		E453FAB31E411D7B00E590D5 /* Build configuration list for PBXProject "__PROJECT_NAME__" */ = {
+		E453FAB31E411D7B00E590D5 /* Build configuration list for PBXProject "__TEMP__" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				E453FAC31E411D7B00E590D5 /* Debug */,

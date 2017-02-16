@@ -41,7 +41,7 @@ module.exports.prepare = function (nodekitProject) {
         configMunger.get(this.locations.root), this.locations);
 
     // Update own app dir with project's app assets and plugins' assets and js-files
-    return Q.when(/* NODEKIT */ true)
+    return Q.when(updateApp(nodekitProject, this.locations))
     .then(function () {
         // update project according to nodekit.json changes.
         return updateProject(self._config, self.locations);
@@ -101,9 +101,9 @@ function updateApp(nodekitProject, destinations) {
     shell.rm('-rf', destinations.app);
     shell.mkdir('-p', destinations.app);
     // Copy source files from project's app directory
-    shell.cp('-rf', path.join(nodekitProject.locations.app, '*'), destinations.app);
+    shell.cp('-rf', path.join(nodekitProject.locations.app, 'dist', '*'), destinations.app);
     // Override app sources by files in 'platform_app' directory
-    shell.cp('-rf', path.join(destinations.platformApp, '*'), destinations.app);
+    // NodeKit removed platform_app
 
     // If project contains 'merges' for our platform, use them as another overrides
     var merges_path = path.join(nodekitProject.root, 'merges', 'osx');

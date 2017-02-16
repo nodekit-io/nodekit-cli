@@ -22,9 +22,7 @@ import io.nodekit.nkhosting.NodeKitActivity;
 public class MainActivity extends NodeKitActivity {
 
     public MainActivity() {
-
     super();
-        this.options.put("preloadURL", "app://localhost/index.html");
     }
 
 }

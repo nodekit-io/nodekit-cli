@@ -45,16 +45,5 @@ NSUserDefaults.standardUserDefaults().setBool(true, forKey: "WebKitDeveloperExtr
 NSUserDefaults.standardUserDefaults().setBool(true, forKey: "WebKitStoreWebDataForBackup")
 NSUserDefaults.standardUserDefaults().synchronize()
 
-NKElectroHost.start([
-    "nk.allowCustomProtocol": false,
-    "nk.taskBarPopup": false,
-    "nk.taskBarIcon": "MenuIcon",
-    "width": 300,
-    "height": 600,
-    "title": "__PROJECT_NAME__",
-    "nk.NoSplash": true,
-    "nk.NoTaskBar": false,
-    "preloadURL": "app://localhost/index.html",
-    "Engine" : NKEngineType.JavaScriptCore.rawValue
-    ], delegate: myNKDelegate() )
+NKElectroHost.start()
 
