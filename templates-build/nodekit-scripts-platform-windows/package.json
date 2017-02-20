@@ -1,0 +1,21 @@
+{
+  "name": "__SYSTEM_GENERATED__",
+  "version": "__SYSTEM_GENERATED__",
+  "description": "Windows platform platform build scripts and project templates for nodekit-scripts, the command line interface for building {NK} NodeKit applications",
+  "author": "OffGrid Networks",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodekit"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodekit-io/nodekit-scripts.git"
+  },
+  "main": "bin/nodekit-scripts/Api.js",
+  "dependencies": {
+    "__SYSTEM_GENERATED__": ""
+  }
+}

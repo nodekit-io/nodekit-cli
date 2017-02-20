@@ -19,7 +19,7 @@ Make sure you have Node.js installed (between v4 and v6).
 Optimal: install Node.js version 6.7 or later and npm 3.10 or later using nvm
 
 ``` bash
-npm install -g nodekit-cli
+npm install -g nodekit
 ```
 
 ## Create and run a nodekit application

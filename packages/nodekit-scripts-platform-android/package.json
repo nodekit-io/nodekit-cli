@@ -1,0 +1,25 @@
+{
+  "name": "nodekit-scripts-platform-android",
+  "version": "6.1.2",
+  "description": "Android platform build scripts and project templates for nodekit-scripts, the command line interface for building {NK} NodeKit applications",
+  "author": "OffGrid Networks",
+  "license": "Apache-2.0",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [
+    "nodekit"
+  ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/nodekit-io/nodekit-scripts.git"
+  },
+  "main": "bin/nodekit-scripts/Api.js",
+  "dependencies": {
+    "elementtree": "^0.1.6",
+    "nopt": "^3.0.1",
+    "properties-parser": "^0.2.3",
+    "q": "^1.4.1",
+    "shelljs": "^0.5.3"
+  }
+}
